@@ -100,7 +100,7 @@ const enter = ({ user }) => {
             return (
                 <button
                     onClick={() => handleAddTeam()}
-                    className="inline-block bg-white py-2 px-4 mt-5 border border-white rounded-lg text-base font-medium text-mgreen hover:bg-green-100 hover:text-mgreen cursor-pointer"
+                    className="md:hidden btn btn-outline btn-accent max-w-md"
                 >
                     Continue
                 </button>
@@ -108,8 +108,7 @@ const enter = ({ user }) => {
         } else if (selections.length < 4) {
             return (
                 <button
-                    disabled={true}
-                    className="inline-block bg-transparent py-2 px-4 mt-5 border border-white rounded-lg text-base font-medium text-white"
+                    className="md:hidden btn btn-accent max-w-md"
                 >
                     Not enough Selections
                 </button>
@@ -117,8 +116,7 @@ const enter = ({ user }) => {
         } else {
             return (
                 <button
-                    disabled={true}
-                    className="inline-block bg-transparent py-2 px-4 mt-5 border border-white rounded-lg text-base font-medium text-white"
+                    className="md:hidden btn btn-accent max-w-md"
                 >
                     Total Ranking needs to be over 150
                 </button>

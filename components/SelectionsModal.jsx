@@ -27,9 +27,9 @@ const SelectionsModal = ({ teamName, selections }) => {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex gap-2 px-4 py-2 text-sm font-medium text-black border border-black shadow-2xl bg-ukraineyellow rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="btn btn-accent shadow-2xl"
         >
-          <ClipboardListIcon className="w-5"></ClipboardListIcon>
+          <ClipboardListIcon className="w-5 mr-2"></ClipboardListIcon>
           Your Selections
         </button>
       </div>

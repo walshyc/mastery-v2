@@ -16,29 +16,70 @@ const Selections = ({
     return classes.filter(Boolean).join(' ');
   }
 
+  // function that returns the total ranking of the selections
+  function getTotalRanking(selections) {
+    let totalRanking = 0;
+    selections.forEach((selection) => {
+      totalRanking += selection.ranking;
+    });
+    return totalRanking;
+  }
+
   return (
     <>
       <div className="relative min-h-screen font-inter bg-mgreen py-10">
-        <div className="flex flex-col w-full max-w-6xl mx-auto px-4">
-          {/* <UserInfo></UserInfo> */}
-          {/* <TeamInfo></TeamInfo> */}
+        <div className="flex flex-col md:flex-row md:flex-grow md:justify-around w-full max-w-6xl mx-auto px-4 gap-6">
+        
+          <div className="hidden md:block">
+            <div className="flex flex-col w-full ">
+              <div className="w-full flex justify-start">
+                <div className="text-md font-bold m-2 text-left w-1/2">
+                  Selection
+                </div>
+                <div className="text-md font-bold m-2">Ranking</div>
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {selections.map((s) => (
+                <>
+                  <div className="flex justify-start w-full border-b">
+                    <div className="m-2 text-md text-left w-1/2">
+                      {s.last_name}
+                    </div>
+                    <div className="m-2 text-md">{s.ranking}</div>
+                  </div>
+                </>
+              ))}
+              <div className="flex justify-start w-full">
+                <div className="w-1/2"></div>
+                {getTotalRanking(selections) >= 150 ? (
+                  <div className="font-bold text-right text-xl bg-mgreen p-2 rounded-lg">
+                    {getTotalRanking(selections)}/150
+                  </div>
+                ) : (
+                  <div className="font-bold text-right text-xl  bg-red-300 p-2 rounded-lg">
+                    {getTotalRanking(selections)}/150
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 md:gap-x-10">
             {entries.map((player) => (
               <div
                 className={classNames(
                   checkSelected(player.player_id)
                     ? 'bg-mred border-2 border-black  ring-black '
                     : 'bg-white',
-                  'relative rounded-lg shadow-xl px-3 py-2 cursor-pointer flex focus:outline-none'
+                  'card p-2'
                 )}
                 onClick={() => handleSelect(player)}
                 key={player.player_id}
               >
                 <div className="flex items-center justify-start gap-3 w-full">
                   <Image
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     src={`/flags/${player.country}.svg`}
                     // src={`/headshots/${player.player_id}.webp`}
                     alt={player.country}
@@ -51,7 +92,7 @@ const Selections = ({
                         checkSelected(player.player_id)
                           ? 'text-white'
                           : 'text-gray-900',
-                        'font-medium text-xl'
+                        'card-title'
                       )}
                     >
                       {player.last_name}
@@ -69,7 +110,7 @@ const Selections = ({
                           checkSelected(player.player_id)
                             ? 'text-white'
                             : 'text-gray-800',
-                          'inline'
+                          'inline text-sm'
                         )}
                       >
                         {player.first_name}
@@ -83,10 +124,10 @@ const Selections = ({
                         checkSelected(player.player_id)
                           ? 'bg-white'
                           : 'bg-green-200',
-                        'rounded-lg border-white border w-10 h-10 flex justify-center p-2  text-green-900 shadow-2xl font-bold'
+                        'badge p-4 font-bold mr-2'
                       )}
                     >
-                      {player.ranking}
+                      <span className='text-xs font-light mr-2'>R: </span>  {player.ranking}
                     </div>
                   </div>
                 </div>

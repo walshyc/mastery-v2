@@ -7,7 +7,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 const USA = ({ selected, setSelected, handleSelect }) => {
   return (
     <>
-      <div className="text-gray-100 font-bold text-4xl">USA Golfer's</div>
+      <div className="text-gray-100 font-bold text-4xl">USA Golfers</div>
       <div className="text-gray-100 text-xs tracking-wide leading-5">
         You need to select 2 USA golfers for your team. You can select the first
         here and then click next

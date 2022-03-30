@@ -53,7 +53,7 @@ const enter = ({ user }) => {
             }
         );
 
-        Router.push("/cart")
+        Router.push("/enter")
     }
 
 

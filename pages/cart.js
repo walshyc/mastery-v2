@@ -1,15 +1,35 @@
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import React from 'react'
+import Router from "next/router";
+
+import { supabase } from "../client"
+
+import axios from 'axios';
 import { useCart } from 'react-use-cart'
 
-const cart = () => {
+const cart = ({ user }) => {
     const {
         isEmpty,
         items,
         removeItem,
         cartTotal
     } = useCart();
+
+
+    // create function that sends team_name and selections to /_add_team api endpoint
+    const handleSubmit = async () => {
+
+
+        await axios.post(
+            '/api/add_team',
+            {
+                team_name: items[0].name, selections: items[0].selections, user_id: user.id
+            }
+        );
+
+        Router.push("/enter")
+    }
 
 
     if (isEmpty) return (
@@ -46,7 +66,7 @@ const cart = () => {
                     </div>
                     <div className="mr-6">€{(cartTotal * 0.01).toFixed(2)}</div>
                 </div>
-                <div className="btn btn-accent">Pay Now</div>
+                <div onClick={handleSubmit} className="btn btn-accent">Pay Now</div>
                 <div className="text-center text-gray-500 pb-2 text-sm cursor-pointer">
                     <Link href='/enter' passHref>
                         <div className="text-mgreen">
@@ -57,5 +77,17 @@ const cart = () => {
             </div>
         </div>)
 }
+
+export const getServerSideProps = async ({ req }) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+
+    if (!user) {
+        return { props: {}, redirect: { destination: '/sign-in' } }
+    }
+
+    return { props: { user } }
+
+}
+
 
 export default cart

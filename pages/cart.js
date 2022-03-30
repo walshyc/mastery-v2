@@ -2,16 +2,15 @@ import { XIcon } from '@heroicons/react/outline';
 import React from 'react'
 import { useCart } from 'react-use-cart'
 
+const {
+    isEmpty,
+
+    items,
+    removeItem,
+    cartTotal
+} = useCart();
 const cart = () => {
 
-    const {
-        isEmpty,
-        totalUniqueItems,
-        items,
-        updateItemQuantity,
-        removeItem,
-        cartTotal
-    } = useCart();
 
     if (isEmpty) return (
         <p>Your Cart is empty</p>

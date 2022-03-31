@@ -13,7 +13,7 @@ const handler = async (req, res) => {
 
             res.json({ received: true })
         } catch (err) {
-            res.status(400).send(`Webhook Error: ${err.message}`);
+            res.status(400).send(`Webhook Errors: ${err.message}`);
             return;
         }
 

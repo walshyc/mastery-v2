@@ -30,8 +30,8 @@ const TeamInfo = () => {
       return (
         <>
           <div className="flex flex-col  mx-3 pt-10 gap-3">
-            <div className="text-gray-100 font-bold text-4xl">Team Name</div>
-            <div className="text-gray-100 text-xs tracking-wide">
+            <div className="text-base-100 font-bold text-4xl">Team Name</div>
+            <div className="text-base-100 text-xs tracking-wide">
               Enter the name you want to display publicly. Use your own name or
               get creative!
             </div>

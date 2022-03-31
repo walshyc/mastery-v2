@@ -4,14 +4,13 @@ import { supabase } from '../client'
 
 const SignIn = () => {
     const [email, setEmail] = useState('')
-    const [name, setName] = useState('')
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState(false)
 
     // function to sign the user in with supabase
     const handleSubmit = async () => {
 
-        const { data, error } = await supabase.auth.signIn({ email, data: { hello: name } })
+        const { data, error } = await supabase.auth.signIn({ email })
         if (error) {
             setError(true)
         } else {
@@ -22,16 +21,24 @@ const SignIn = () => {
     }
     if (submitted) {
         return (
-            <div className="text-xl">Please check your email to sign in</div>
+            <div className='flex flex-col gap-5 mt-4'>
+                <div className="text-base-100 font-bold text-4xl">Thanks!</div>
+                <div className="text-base-100 text-md tracking-wide leading-7">
+                    Now just check your email for a link to sign in and enter!
+                </div>
+            </div>
         )
     }
     return (
         <div className="">
-            <main>
-                <h1>Sign In</h1>
-                <input type="name" name="" id="" onChange={e => setName(e.target.value)} />
-                <input type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
-                <button className='m-2.5' onClick={() => handleSubmit()}>Sign In</button>
+            <main className='flex flex-col gap-5 mt-4'>
+                <div className="text-base-100 font-bold text-4xl">Sign in</div>
+                <div className="text-base-100 text-md tracking-wide leading-7">
+                    Enter your email address to sign up. You will get an email with a link to sign in. One less password to remember!
+
+                </div>
+                <input className="input input-bordered w-full max-w-xs" placeholder='Your email address...' type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
+                <button className='btn btn-accent w-full' onClick={() => handleSubmit()}>Sign In</button>
             </main>
         </div>
     )

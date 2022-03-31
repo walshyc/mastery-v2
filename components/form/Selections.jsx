@@ -29,7 +29,11 @@ const Selections = ({
     <>
       <div className="relative min-h-screen font-inter bg-mgreen py-10">
         <div className="flex flex-col md:flex-row md:flex-grow md:justify-around w-full max-w-6xl mx-auto px-4 gap-6">
-        
+          <div className="text-base-100 font-bold text-4xl">Selections</div>
+          <div className="text-base-100 font-bold text-4xl">{teamName}</div>
+          <div className="text-base-100 text-md tracking-wide leading-7">
+            Time to select your 4 golfers. The world ranking of each golfer is shown beside their name. The total world ranking of your selections must be 175 or over.
+          </div>
           <div className="hidden md:block">
             <div className="flex flex-col w-full ">
               <div className="w-full flex justify-start">
@@ -71,7 +75,7 @@ const Selections = ({
                   checkSelected(player.player_id)
                     ? 'bg-mred border-2 border-black  ring-black '
                     : 'bg-white',
-                  'card p-2'
+                  'card  p-2 cursor-pointer overflow-visible'
                 )}
                 onClick={() => handleSelect(player)}
                 key={player.player_id}
@@ -83,7 +87,7 @@ const Selections = ({
                     src={`/flags/${player.country}.svg`}
                     // src={`/headshots/${player.player_id}.webp`}
                     alt={player.country}
-                    className="border-2 border-black"
+                   
                   ></Image>
 
                   <div className="flex flex-col items-start flex-grow ml-1">
@@ -127,7 +131,8 @@ const Selections = ({
                         'badge p-4 font-bold mr-2'
                       )}
                     >
-                      <span className='text-xs font-light mr-2'>R: </span>  {player.ranking}
+                      <span className="text-xs font-light mr-2">R: </span>{' '}
+                      {player.ranking}
                     </div>
                   </div>
                 </div>
@@ -137,7 +142,7 @@ const Selections = ({
                 {checkSelected(player.player_id) && (
                   <div
                     onClick={(e) => handleRemove(e, player)}
-                    className="absolute -right-2 -top-2"
+                    className="absolute -right-2 -top-2 border border-black rounded-full"
                   >
                     <XIcon className="w-4 text-red-700 bg-white rounded-full"></XIcon>
                   </div>

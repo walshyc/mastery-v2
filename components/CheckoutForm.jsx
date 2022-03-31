@@ -61,12 +61,12 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000/enter',
+        return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
       },
     });
 
     if(!error){
-      
+
     }
 
     // This point will only be reached if there is an immediate error when

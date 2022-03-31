@@ -5,13 +5,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const handler = async (req, res) => {
     if (req.method === "POST") {
-        let event;
         try {
+            
             const rawbody = await buffer(req);
             const sig = req.headers['stripe-signature'];
-            event = stripe.webhooks.constructEvent(rawbody.toString(), sig, process.env.STRIPE_WEBHOOK_SECRET);
+            const event = stripe.webhooks.constructEvent(rawbody.toString(), sig, process.env.STRIPE_WEBHOOK_SECRET);
 
-            res.json({ received: true })
+            res.send()
         } catch (err) {
             res.status(400).send(`Webhook Errors: ${err.message}`);
             return;

@@ -17,7 +17,7 @@ const Selections = ({
   }
 
   // function that returns the total ranking of the selections
-  function getTotalRanking(selections) {
+  function getTotalRanking() {
     let totalRanking = 0;
     selections.forEach((selection) => {
       totalRanking += selection.ranking;
@@ -55,13 +55,13 @@ const Selections = ({
               ))}
               <div className="flex justify-start w-full">
                 <div className="w-1/2"></div>
-                {getTotalRanking(selections) >= 150 ? (
+                {getTotalRanking() >= 150 ? (
                   <div className="font-bold text-right text-xl bg-mgreen p-2 rounded-lg">
-                    {getTotalRanking(selections)}/150
+                    {getTotalRanking()}/150
                   </div>
                 ) : (
                   <div className="font-bold text-right text-xl  bg-red-300 p-2 rounded-lg">
-                    {getTotalRanking(selections)}/150
+                    {getTotalRanking()}/150
                   </div>
                 )}
               </div>

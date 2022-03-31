@@ -16,20 +16,7 @@ const cart = ({ user }) => {
     } = useCart();
 
 
-    // create function that sends team_name and selections to /_add_team api endpoint
-    const handleSubmit = async () => {
-        await axios.post(
-            '/api/add_team',
-            {
-                team_name: items[0].name, selections: items[0].selections, user_id: user.id
-            }
-        );
-
-        Router.push("/enter")
-    }
-
-
-    if (isEmpty) return (
+      if (isEmpty) return (
         <p>Your Cart is empty</p>
     )
     return (

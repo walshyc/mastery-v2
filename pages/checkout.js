@@ -1,29 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import { supabase } from "../client"
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../components/CheckoutForm'
+import { useCart } from 'react-use-cart';
 
 const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
 );
 
-const checkout = () => {
+const checkout = ({ user }) => {
     const [clientSecret, setClientSecret] = useState("");
+
+    const { items, cartTotal } = useCart();
+
+
+    const getIds = () => {
+        let ids = [];
+        items.forEach(item => {
+            let team = {}
+            console.log(item)
+            team.name = item.name
+            let idsSelect = []
+            // loop over item selections and store ids
+            item.selections.forEach(selection => {
+                idsSelect.push(selection.player_id)
+            })
+            team.selections = idsSelect
+            ids.push(team)
+        })
+        return ids
+    }
+
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         fetch("/api/stripe/payment_intents", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+            body: JSON.stringify({ metadata: getIds(), amount: cartTotal, user_id: user.id }),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-    }, []);
-
-
-
+           }, []);
 
     const appearance = {
         theme: 'stripe',
@@ -46,6 +65,17 @@ const checkout = () => {
         )
 
     )
+}
+
+export const getServerSideProps = async ({ req }) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+
+    if (!user) {
+        return { props: {}, redirect: { destination: '/sign-in' } }
+    }
+
+    return { props: { user } }
+
 }
 
 export default checkout

@@ -1,106 +1,81 @@
 const getRawBody = require("raw-body");
+import axios from "axios";
+import { newEntries } from '../../../entries'
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Disable next.js body parsing (stripe needs the raw body to validate the event)
 export const config = {
-  api: {
-    bodyParser: false,
-  },
+    api: {
+        bodyParser: false,
+    },
 };
 
-export default async (req, res) => {
-  const headers = req.headers;
+const handler = async (req, res) => {
+    const headers = req.headers;
 
-  try {
-    const rawBody = await getRawBody(req);
+    try {
+        const rawBody = await getRawBody(req);
 
-    const stripeEvent = stripe.webhooks.constructEvent(
-      rawBody,
-      headers["stripe-signature"],
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+        const stripeEvent = stripe.webhooks.constructEvent(
+            rawBody,
+            headers["stripe-signature"],
+            process.env.STRIPE_WEBHOOK_SECRET
+        );
 
-    console.log(`stripeEvent: ${stripeEvent.type}`);
+        console.log(`stripeEvent: ${stripeEvent.type}`);
 
-    // Get the object from stripeEvent
-    const object = stripeEvent.data.object;
+        // Get the object from stripeEvent
+        const { selections, user_id } = stripeEvent.data.object.metadata;
 
-    // switch (stripeEvent.type) {
-    //   case "checkout.session.completed":
-    //     // Fetch subscription
-    //     const subscription = await stripe.subscriptions.retrieve(
-    //       object.subscription
-    //     );
+        console.log(JSON.parse(selections))
 
-    //     // Update the current user
-    //     await updateUserByCustomerId(object.customer, {
-    //       stripeSubscriptionId: subscription.id,
-    //       // Store the priceId (or "plan") for this subscription
-    //       stripePriceId: subscription.items.data[0].price.id,
-    //       // Store the subscription status ("active" or "trialing")
-    //       stripeSubscriptionStatus: subscription.status,
-    //     });
 
-    //     break;
 
-    //   case "invoice.payment_succeeded":
-    //     // If a payment succeeded we update stored subscription status to "active"
-    //     // in case it was previously "trialing" or "past_due".
-    //     // We skip if amount due is 0 as that's the case at start of trial period.
-    //     if (object.amount_due > 0) {
-    //       await updateUserByCustomerId(object.customer, {
-    //         stripeSubscriptionStatus: "active",
-    //       });
-    //     }
+        switch (stripeEvent.type) {
+            case "charge.succeeded":
+                const fullSelections = JSON.parse(selections).map(selection => {
+                    const sel = { name: selection.name, user_id: user_id, picks: [] }
+                    selection.selections.map(id => {
+                        //loop over newEntries and find the player with the id
+                        newEntries.forEach(entry => {
+                            if (entry.player_id === id) {
 
-    //     break;
+                                sel.picks.push(entry)
+                            }
 
-    //   case "invoice.payment_failed":
-    //     // If a payment failed we update stored subscription status to "past_due"
-    //     await updateUserByCustomerId(object.customer, {
-    //       stripeSubscriptionStatus: "past_due",
-    //     });
+                        })
+                    })
+                    return sel;
+                })
 
-    //     break;
+                // use axios to post each fullselecitons to the add_team api usinf a for of loop
+                for (const selection of fullSelections) {
+                    // await axios.post(`http://localhost:3000/api/add_team`, {
+                    //     team_name: selection.name,
+                    //     selections: selection.picks,
+                    //     user_id: selection.user_id
+                    // })
+                    await axios.post(`https://calm-crumble-c953d1.netlify.app/api/add_team`, {
+                        team_name: selection.name,
+                        selections: selection.picks,
+                        user_id: selection.user_id
+                    })
+                }
+                break;
 
-    //   case "customer.subscription.updated":
-    //     await updateUserByCustomerId(object.customer, {
-    //       stripePriceId: object.items.data[0].price.id,
-    //       stripeSubscriptionStatus: object.status,
-    //     });
 
-    //     // 💡 You could also read "cancel_at_period_end" if you'd like to email user and learn why they cancelled
-    //     // or convince them to renew before their subscription is deleted at end of payment period.
-    //     break;
+            // no default
+        }
 
-    //   case "customer.subscription.deleted":
-    //     // If a subscription was deleted update stored subscription status to "canceled".
-    //     // Keep in mind this won't be called right away if "Cancel at end of billing period" is selected
-    //     // in Billing Portal settings (https://dashboard.stripe.com/settings/billing/portal). Instead you'll
-    //     // get a "customer.subscription.updated" event with a cancel_at_period_end value.
-    //     await updateUserByCustomerId(object.customer, {
-    //       stripeSubscriptionStatus: "canceled",
-    //     });
+        // Send success response
+        res.send({ status: "success" });
+    } catch (error) {
+        console.log("stripe webhook error", error);
 
-    //     break;
-
-    //   case "customer.subscription.trial_will_end":
-    //     // This event happens 3 days before a trial ends
-    //     // 💡 You could email user letting them know their trial will end or you can have Stripe do that
-    //     // automatically 7 days in advance: https://dashboard.stripe.com/settings/billing/automatic
-
-    //     break;
-
-    //   // no default
-    // }
-
-    // Send success response
-    res.send({ status: "success" });
-  } catch (error) {
-    console.log("stripe webhook error", error);
-
-    // Send error response
-    res.send({ status: "error", code: error.code, message: error.message });
-  }
+        // Send error response
+        res.send({ status: "error", code: error.code, message: error.message });
+    }
 };
+
+export default handler;

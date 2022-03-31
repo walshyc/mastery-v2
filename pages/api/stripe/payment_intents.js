@@ -6,14 +6,14 @@ const handler = async (req, res) => {
     //console.log(req)
     if (req.method === "POST") {
         try {
-            // const { amount, email, metadata } = req.body;
-
+           
             const paymentIntent = await stripe.paymentIntents.create({
-                amount: 1000,
+                amount: req.body.amount,
                 currency: "eur",
                 automatic_payment_methods: {
                     enabled: true,
                 },
+                metadata: { selections: JSON.stringify(req.body.metadata), user_id: req.body.user_id }
             });
 
 

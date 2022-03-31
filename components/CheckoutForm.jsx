@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CartProvider, useCart } from 'react-use-cart';
+import { useCart } from 'react-use-cart';
 import {
   PaymentElement,
   useStripe,
@@ -13,7 +13,7 @@ const CheckoutForm = () => {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isEmpty, items, removeItem, cartTotal } = useCart();
+  const {  cartTotal } = useCart();
 
   useEffect(() => {
     if (!stripe) {
@@ -61,13 +61,10 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
+          return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
+        //return_url: 'http://localhost:3000/thanks',
       },
     });
-
-    if(!error){
-
-    }
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
@@ -89,11 +86,9 @@ const CheckoutForm = () => {
       id="payment-form"
       onSubmit={handleSubmit}
     >
-      <div className="text-base-100 font-bold text-4xl mt-6">
-        Checkout
-      </div>
+      <div className="text-base-100 font-bold text-4xl mt-6">Checkout</div>
       <div className="text-base-100 mt-2 text-2xl">
-      €{(cartTotal * 0.01).toFixed(2)}
+        €{(cartTotal * 0.01).toFixed(2)}
       </div>
       <div className="bg-base-100 p-3 rounded-lg mt-4">
         <PaymentElement id="payment-element" />

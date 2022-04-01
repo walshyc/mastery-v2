@@ -59,21 +59,7 @@ const Navbar = ({ auth }) => {
               </Link>
             </div>
           )}
-          {auth === 'authenticated' && (
-            <div className="ml-10 flex gap-2">
-              <Link href="/enter" passHref>
-                <div className="inline-block bg-transparent py-2 px-4 border border-mgreen rounded-lg text-base font-medium text-mgreen hover:bg-green-100 cursor-pointer">
-                  Enter
-                </div>
-              </Link>
-              <Link href="/cart" passHref>
-                <div className="flex gap-2 bg-transparent py-2 px-4 border border-mgreen rounded-lg text-base font-medium text-mgreen hover:bg-green-100 cursor-pointer">
-                  <ShoppingCartIcon className="w-4"></ShoppingCartIcon>
-                  {totalUniqueItems > 0 && totalUniqueItems}
-                </div>
-              </Link>
-            </div>
-          )}
+         
         </div>
 
         <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">

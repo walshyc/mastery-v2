@@ -59,7 +59,7 @@ const enter = ({ user }) => {
 
     const handleSelect = (player) => {
 
-        if (count < 4 && !selections.some(select => select.player_id === player.player_id)) {
+        if (count < 5 && !selections.some(select => select.player_id === player.player_id)) {
             setSelections(prevSelections => [...prevSelections, player])
             setCount(count + 1)
         } else if (selections.some(select => select.player_id === player.player_id)) {
@@ -96,19 +96,19 @@ const enter = ({ user }) => {
         return totalRanking;
     }
     const showButton = () => {
-        if (selections.length === 4 && getTotalRanking(selections) > 149) {
+        if (selections.length === 5 && getTotalRanking(selections) > 199) {
             return (
                 <button
                     onClick={() => handleAddTeam()}
-                    className="md:hidden btn btn-outline btn-accent max-w-md"
+                    className=" btn  btn-accent max-w-md"
                 >
                     Continue
                 </button>
             );
-        } else if (selections.length < 4) {
+        } else if (selections.length < 5) {
             return (
                 <button
-                    className="md:hidden btn btn-accent max-w-md"
+                    className=" btn btn-accent max-w-md"
                 >
                     Not enough Selections
                 </button>
@@ -116,9 +116,9 @@ const enter = ({ user }) => {
         } else {
             return (
                 <button
-                    className="md:hidden btn btn-accent max-w-md"
+                    className=" btn btn-accent max-w-md"
                 >
-                    Total Ranking needs to be over 150
+                    Total Ranking needs to be over 200
                 </button>
             );
         }

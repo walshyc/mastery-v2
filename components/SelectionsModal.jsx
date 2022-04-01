@@ -73,13 +73,13 @@ const SelectionsModal = ({ teamName, selections }) => {
             ))}
             <div className="flex justify-start w-full">
               <div className="w-1/2"></div>
-              {getTotalRanking(selections) >= 150 ? (
+              {getTotalRanking(selections) >= 200 ? (
                 <div className="font-bold text-right text-xl bg-mgreen p-2 rounded-lg">
-                  {getTotalRanking(selections)}/150
+                  {getTotalRanking(selections)}/200
                 </div>
               ) : (
                 <div className="font-bold text-right text-xl  bg-red-300 p-2 rounded-lg">
-                  {getTotalRanking(selections)}/150
+                  {getTotalRanking(selections)}/200
                 </div>
               )}
             </div>

@@ -52,7 +52,7 @@ export default function Home() {
             <span className="block text-sm font-semibold uppercase tracking-wide text-gray-200 sm:text-base lg:text-sm xl:text-base">
               Masters 2022
             </span>
-            <span className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
+            <span className="mt-1 block text-4xl font-extrabold sm:text-5xl xl:text-6xl">
               <span className="block text-gray-100">A Tradition Unlike</span>
               <span className="block text-ukraineyellow">Any Other</span>
             </span>
@@ -61,7 +61,7 @@ export default function Home() {
             Enter your email address to sign up. You will get an email with a link to sign up and enter. One less password to remember!
 
           </div>
-          <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
+          <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
             <div className="flex gap-4">
               <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
               <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>

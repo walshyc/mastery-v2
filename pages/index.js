@@ -43,8 +43,8 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
 
       </Head>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
-        <div className='order-last md:order-first flex items-center'>
+      <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 gap-10 mt-8">
+        <div className='order-last lg:order-first flex items-center'>
           <Image alt='masters scene' src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
         </div>
         <main className='flex flex-col gap-5 mt-4 max-w-lg'>
@@ -61,14 +61,14 @@ export default function Home() {
             Enter your email address to sign up. You will get an email with a link to sign up and enter. One less password to remember!
 
           </div>
-          <div className="my-3 text-base text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
+          <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
             <div className="flex gap-4">
               <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
-              <div className="text-ukraineyellow font-medium">All profits donated to Irish Red Cross Ukraine Crisis Appeal.</div>
+              <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
             </div>
           </div>
-          <input className="input input-bordered w-full max-w-md" placeholder='Your email address...' type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
-          <button className='btn btn-accent w-full  max-w-md' onClick={() => handleSubmit()}>Sign In</button>
+          <input className="input input-bordered w-full max-w-lg" placeholder='Your email address...' type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
+          <button className='btn btn-accent w-full  max-w-lg' onClick={() => handleSubmit()}>Sign Up</button>
         </main>
       </div>
     </div>

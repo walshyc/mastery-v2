@@ -13,7 +13,7 @@ const CheckoutForm = () => {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {  cartTotal } = useCart();
+  const { cartTotal, emptyCart } = useCart();
 
   useEffect(() => {
     if (!stripe) {
@@ -57,14 +57,16 @@ const CheckoutForm = () => {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-          return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
-        //return_url: 'http://localhost:3000/thanks',
-      },
-    });
+    const { error } = await stripe
+      .confirmPayment({
+        elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          //return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
+          return_url: 'http://localhost:3000/thanks',
+        },
+      })
+     
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to

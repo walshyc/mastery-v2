@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useCart } from 'react-use-cart';
+
 
 const thanks = () => {
+  const { emptyCart } = useCart();
+  useEffect(() => {
+    emptyCart()
+  }, [])
+
   return (
     <div className='flex flex-col gap-5 mt-4'>
       <div className="text-base-100 font-bold text-4xl">Thanks!</div>

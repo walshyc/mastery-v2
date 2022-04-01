@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-//import styles from '../styles/Home.module.css'
 import { entries } from '../entries'
 import { useState } from 'react'
 import { supabase } from '../client'
@@ -13,7 +12,7 @@ export default function Home() {
 
   // function to sign the user in with supabase
   const handleSubmit = async () => {
-  
+
     const { data, error } = await supabase.auth.signIn({ email })
     if (error) {
       setError(true)
@@ -46,7 +45,7 @@ export default function Home() {
       </Head>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
         <div className='order-last md:order-first flex items-center'>
-          <Image src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
+          <Image alt='masters scene' src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
         </div>
         <main className='flex flex-col gap-5 mt-4 max-w-lg'>
           <h1>
@@ -64,7 +63,7 @@ export default function Home() {
           </div>
           <div className="my-3 text-base text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
             <div className="flex gap-4">
-              <Image src='/flags/UKR.svg' width={100} height={30}></Image>
+              <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
               <div className="text-ukraineyellow font-medium">All profits donated to Irish Red Cross Ukraine Crisis Appeal.</div>
             </div>
           </div>

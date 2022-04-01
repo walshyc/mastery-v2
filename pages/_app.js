@@ -5,6 +5,7 @@ import { CartProvider } from 'react-use-cart';
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
@@ -50,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
       </Head>
-      <div className="flex flex-col min-h-screen ">
+      <div className="flex flex-col min-h-screen bg-mgreen">
         <Navbar auth={authenticatedState}></Navbar>
         {/* <nav className='flex justify-around m-3'>
 
@@ -73,7 +74,7 @@ function MyApp({ Component, pageProps }) {
       </nav> */}
         <div className="grow bg-mgreen">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><Component {...pageProps} /></div></div>
-        <footer>FOOTER</footer>
+        <Footer></Footer>
 
       </div>
     </CartProvider>)

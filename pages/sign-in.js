@@ -33,7 +33,7 @@ const SignIn = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
             <div className='order-last md:order-first'>
-                <Image src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
+                <Image alt='masters scene' src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
             </div>
             <main className='flex flex-col gap-5 mt-4 max-w-lg'>
                 <div className="text-base-100 font-bold text-4xl">Sign in</div>

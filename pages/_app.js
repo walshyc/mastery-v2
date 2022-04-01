@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
       </Head>
       <div className="flex flex-col min-h-screen ">
-        <Navbar></Navbar>
+        <Navbar auth={authenticatedState}></Navbar>
         {/* <nav className='flex justify-around m-3'>
 
         <Link href='/' passHref>

@@ -26,7 +26,7 @@ const Navbar = ({ auth }) => {
           {auth === 'not-authenticated' ? (
             <div className="ml-10 flex gap-2">
               <Link href="/sign-in" passHref>
-                <div className="inline-block bg-transparent py-2 px-4 border border-mgreen rounded-lg text-base font-medium text-mgreen hover:bg-green-100 cursor-pointer">
+                <div className="btn btn-sm btn-outline btn-primary border-mgreen">
                   Sign In
                 </div>
               </Link>

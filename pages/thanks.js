@@ -18,7 +18,7 @@ const thanks = () => {
         <Image alt='golfer celebrating' src='/phil.webp' width={600} height={400} className="rounded-2xl"></Image>
       </div>
       <main className='flex flex-col gap-5 mt-4 max-w-lg'>
-        <div className="text-base-100 font-bold text-4xl">Thanks! You're In!</div>
+        <div className="text-base-100 font-bold text-4xl">Thanks! You&apos;re In!</div>
         <div className="text-base-100 text-md tracking-wide leading-7">
           Your teams have been entered! Check back on Thursday for live scores. You can view your selections from your Profile page.
         </div>

@@ -9,11 +9,13 @@ const handler = async (req, res) => {
         console.log(req.body)
         // res.status(200).json({ name: 'John Doe' })
         try {
-            const { team_name, selections, user_id } = req.body;
+            console.log(req.body)
+            const { team_name, selections, user_id, tiebreaker } = req.body;
+            console.log(tiebreaker)
             const { data, error } = await supabase
                 .from('selections')
                 .insert([
-                    { team_name, picks: selections, user_id: user_id },
+                    { team_name, picks: selections, user_id, tiebreaker },
                 ])
             console.log(data)
             console.log(error)

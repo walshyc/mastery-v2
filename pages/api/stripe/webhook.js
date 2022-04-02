@@ -26,7 +26,7 @@ const handler = async (req, res) => {
         console.log(`stripeEvent: ${stripeEvent.type}`);
 
         // Get the object from stripeEvent
-        const { selections, user_id } = stripeEvent.data.object.metadata;
+        const { selections, user_id, } = stripeEvent.data.object.metadata;
 
         console.log(JSON.parse(selections))
 
@@ -35,7 +35,8 @@ const handler = async (req, res) => {
         switch (stripeEvent.type) {
             case "charge.succeeded":
                 const fullSelections = JSON.parse(selections).map(selection => {
-                    const sel = { name: selection.name, user_id: user_id, picks: [] }
+                    console.log(selection.tiebreaker)
+                    const sel = { name: selection.name, tiebreaker: selection.tiebreaker, user_id: user_id, picks: [] }
                     selection.selections.map(id => {
                         //loop over newEntries and find the player with the id
                         newEntries.forEach(entry => {
@@ -46,6 +47,7 @@ const handler = async (req, res) => {
 
                         })
                     })
+
                     return sel;
                 })
 
@@ -54,12 +56,14 @@ const handler = async (req, res) => {
                     // await axios.post(`http://localhost:3000/api/add_team`, {
                     //     team_name: selection.name,
                     //     selections: selection.picks,
-                    //     user_id: selection.user_id
+                    //     user_id: selection.user_id,
+                    //     tiebreaker: selection.tiebreaker
                     // })
                     await axios.post(`https://calm-crumble-c953d1.netlify.app/api/add_team`, {
                         team_name: selection.name,
                         selections: selection.picks,
-                        user_id: selection.user_id
+                        user_id: selection.user_id,
+                        tiebreaker: selection.tiebreaker
                     })
                 }
                 break;

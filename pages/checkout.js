@@ -19,7 +19,7 @@ const checkout = ({ user }) => {
         let ids = [];
         items.forEach(item => {
             let team = {}
-            console.log(item)
+            team.tiebreaker = item.tiebreaker
             team.name = item.name
             let idsSelect = []
             // loop over item selections and store ids
@@ -34,6 +34,7 @@ const checkout = ({ user }) => {
 
 
     useEffect(() => {
+        console.log(getIds())
         // Create PaymentIntent as soon as the page loads
         fetch("/api/stripe/payment_intents", {
             method: "POST",
@@ -42,7 +43,7 @@ const checkout = ({ user }) => {
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-           }, []);
+    }, []);
 
     const appearance = {
         theme: 'stripe',

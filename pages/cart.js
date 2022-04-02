@@ -14,16 +14,16 @@ const cart = ({ user }) => {
         removeItem,
         cartTotal
     } = useCart();
+    console.log(items)
 
 
     if (isEmpty) return (
         <div className="flex flex-col mx-3 pt-10 gap-5">
             <div className="text-base-100 font-bold text-4xl">Your cart is empty!</div>
-            
+
             <Link href='/enter' passHref>
                 <div className="btn btn-accent">Enter a Team</div>
             </Link>
-
         </div>
     )
     return (

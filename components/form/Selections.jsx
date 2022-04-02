@@ -1,7 +1,11 @@
 import React from 'react';
 import SelectionsModal from '../../components/SelectionsModal';
 import Image from 'next/image';
-import { XIcon } from '@heroicons/react/outline';
+import {
+  ArrowNarrowLeftIcon,
+  RewindIcon,
+  XIcon,
+} from '@heroicons/react/outline';
 
 const Selections = ({
   entries,
@@ -11,6 +15,7 @@ const Selections = ({
   teamName,
   showButton,
   selections,
+  setStep,
 }) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -30,6 +35,13 @@ const Selections = ({
       <div className="relative min-h-screen font-inter bg-mgreen py-10">
         <div className="flex flex-col md:flex-row md:flex-grow md:justify-around w-full max-w-6xl mx-auto px-4 gap-6">
           <div className="md:w-1/3 flex flex-col gap-3">
+            <div
+              className="btn btn-sm bg-base-100/60 w-32"
+              onClick={() => setStep(1)}
+            >
+              <ArrowNarrowLeftIcon className="w-4 mr-2"></ArrowNarrowLeftIcon>
+              Back
+            </div>
             <div className="text-base-100 font-bold text-4xl">Selections</div>
             <div className="text-base-100 font-bold text-4xl">{teamName}</div>
             <div className="text-base-100 text-md tracking-wide leading-7">

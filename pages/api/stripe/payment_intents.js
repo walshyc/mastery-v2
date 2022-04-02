@@ -6,7 +6,7 @@ const handler = async (req, res) => {
     //console.log(req)
     if (req.method === "POST") {
         try {
-           
+
             const paymentIntent = await stripe.paymentIntents.create({
                 amount: req.body.amount,
                 currency: "eur",
@@ -15,7 +15,7 @@ const handler = async (req, res) => {
                 },
                 metadata: { selections: JSON.stringify(req.body.metadata), user_id: req.body.user_id }
             });
-
+           // console.log(paymentIntent)
 
             res.send({
                 clientSecret: paymentIntent.client_secret,

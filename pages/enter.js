@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useCart } from 'react-use-cart'
 import { supabase } from "../client"
 import uuid from 'react-uuid'
-import { newEntries, combined } from '../entries'
+import { newEntries } from '../entries'
 import Image from 'next/image';
 import axios from 'axios';
 import Router from "next/router";
@@ -10,19 +10,28 @@ import { XIcon } from '@heroicons/react/outline';
 import SelectionsModal from '../components/SelectionsModal'
 import TeamName from '../components/form/TeamName'
 import Selections from '../components/form/Selections'
+import { GlobalContext } from '../context/GlobalState'
+import Tiebreaker from '../components/form/Tiebreaker'
+
 
 
 const enter = ({ user }) => {
+    const { getEntries, entries, getRankings, getCombined, worldRankings, combined } = useContext(GlobalContext);
     const { items, addItem } = useCart();
     const [selections, setSelections] = useState([])
     const [enabled, setEnabled] = useState(true)
     const [count, setCount] = useState(0)
     const [userID, setUserID] = useState(null)
     const [teamName, setTeamName] = useState('')
+    const [tiebreaker, setTiebreaker] = useState('')
     const [step, setStep] = useState(1);
 
+
     useEffect(() => {
-        console.log(items)
+        // getEntries()
+        // getRankings()
+        getCombined()
+        //console.log(combined)
     }, [items])
 
 
@@ -31,6 +40,7 @@ const enter = ({ user }) => {
         name: teamName,
         selections: selections,
         price: 1000,
+        tiebreaker: tiebreaker
     };
 
     const handleAddTeam = () => {
@@ -99,8 +109,8 @@ const enter = ({ user }) => {
         if (selections.length === 5 && getTotalRanking(selections) > 199) {
             return (
                 <button
-                    onClick={() => handleAddTeam()}
-                    className=" btn  btn-accent max-w-md"
+                    onClick={() => setStep(3)}
+                    className=" btn  btn-accent"
                 >
                     Continue
                 </button>
@@ -108,7 +118,7 @@ const enter = ({ user }) => {
         } else if (selections.length < 5) {
             return (
                 <button
-                    className=" btn btn-accent max-w-md"
+                    className=" btn btn-accent"
                 >
                     You need 5 Selections
                 </button>
@@ -116,7 +126,7 @@ const enter = ({ user }) => {
         } else {
             return (
                 <button
-                    className=" btn btn-accent max-w-md"
+                    className=" btn btn-accent"
                 >
                     Total Ranking needs to be over 200
                 </button>
@@ -136,8 +146,10 @@ const enter = ({ user }) => {
             )
         case 2:
             return (
-                <Selections showButton={showButton} teamName={teamName} selections={selections} entries={newEntries} checkSelected={checkSelected} handleSelect={handleSelect} handleRemove={handleRemove}></Selections>
+                <Selections setStep={setStep} showButton={showButton} teamName={teamName} selections={selections} entries={combined} checkSelected={checkSelected} handleSelect={handleSelect} handleRemove={handleRemove}></Selections>
             )
+        case 3:
+            return (<Tiebreaker teamName={teamName} selections={selections} tiebreaker={tiebreaker} setTiebreaker={setTiebreaker} setStep={setStep} handleAddTeam={handleAddTeam}></Tiebreaker>)
 
 
 

@@ -63,7 +63,7 @@ const CheckoutForm = () => {
       confirmParams: {
         // Make sure to change this to your payment completion page
         return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
-        //return_url: 'http://localhost:3000/thanks',
+       // return_url: 'http://localhost:3000/thanks',
       },
     });
 

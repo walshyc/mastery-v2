@@ -10,8 +10,8 @@ const SignIn = () => {
 
     // function to sign the user in with supabase
     const handleSubmit = async () => {
-        const URL = process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL;
-        const { data, error } = await supabase.auth.signIn({ email }, { redirectTo: `${URL}/enter` })
+        
+        const { data, error } = await supabase.auth.signIn({ email })
         if (error) {
             setError(true)
         } else {

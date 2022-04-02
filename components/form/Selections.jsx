@@ -45,47 +45,52 @@ const Selections = ({
                   </div>
                   <div className="text-md font-bold m-2">Ranking</div>
                 </div> */}
-                <div className="bg-base-200 card shadow-2xl">
-                  {selections.map((p, index) => {
-                    return (
-                      <div key={index} className="p-4">
-                        <div key={p.player_id} className="flex gap-4">
-                          <Image
-                            src={`/flags/${p.country}.svg`}
-                            width={30}
-                            height={20}
-                            alt={`${p.country} flag`}
-                          ></Image>
-                          {/* <ChevronRightIcon className='w-3 mr-2'></ChevronRightIcon> */}
-                          <div className="text-lg grow">
-                            {p.last_name}{' '}
-                            <span className="font-light text-sm">
-                              {p.first_name}
-                            </span>
+                {selections.length > 0 && (
+                  <div className="fixed z-50 top-4 left-0 right-0 mx-5 md:relative md:mx-0 bg-base-100 card border-2 border-black shadow-2xl">
+                    {selections.map((p, index) => {
+                      return (
+                        <div key={index} className="px-4 py-1">
+                          <div key={p.player_id} className="flex gap-4">
+                            <Image
+                              src={`/flags/${p.country}.svg`}
+                              width={30}
+                              height={20}
+                              alt={`${p.country} flag`}
+                            ></Image>
+                            {/* <ChevronRightIcon className='w-3 mr-2'></ChevronRightIcon> */}
+                            <div className="text-lg grow font-bold">
+                              {p.last_name}{' '}
+                              <span className="font-light text-sm">
+                                {p.first_name}
+                              </span>
+                            </div>
+                            <div className="">{p.ranking}</div>
                           </div>
-                          <div className="">{p.ranking}</div>
                         </div>
-                      </div>
-                    );
-                  })}
-                  {selections.length > 0 && (
-                    <div className="flex flex-col">
-                      <div className="flex justify-end items-center border-t border-mgreen">
-                        <div className="text-sm">Total</div>
-                        {getTotalRanking() >= 200 ? (
-                          <div className="font-bold text-right text-xl  p-2 rounded-lg">
-                            {getTotalRanking()}
+                      );
+                    })}
+                    {selections.length > 0 && (
+                      <div className="flex flex-col">
+                        <div className="flex justify-between items-center border-t border-mgreen">
+                          <div className="text-sm font-bold ml-4">
+                            {teamName}
                           </div>
-                        ) : (
-                          <div className="font-bold text-right text-xl   p-2 rounded-lg">
-                            {getTotalRanking()}
-                          </div>
-                        )}
+                          {/* <div className="text-sm">Total</div> */}
+                          {getTotalRanking() >= 200 ? (
+                            <div className="font-bold text-right text-xl  p-2 rounded-lg">
+                              {getTotalRanking()}/200
+                            </div>
+                          ) : (
+                            <div className="font-bold text-right text-xl   p-2 rounded-lg">
+                              {getTotalRanking()}/200
+                            </div>
+                          )}
+                        </div>
+                        {showButton()}
                       </div>
-                      {showButton()}
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

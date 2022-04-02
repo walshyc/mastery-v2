@@ -9,6 +9,7 @@ import {
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const [button, setButton] = useState('Loading...');
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,16 +58,14 @@ const CheckoutForm = () => {
 
     setIsLoading(true);
 
-    const { error } = await stripe
-      .confirmPayment({
-        elements,
-        confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
-          //return_url: 'http://localhost:3000/thanks',
-        },
-      })
-     
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: 'https://calm-crumble-c953d1.netlify.app/thanks',
+        //return_url: 'http://localhost:3000/thanks',
+      },
+    });
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
@@ -93,14 +92,17 @@ const CheckoutForm = () => {
         €{(cartTotal * 0.01).toFixed(2)}
       </div>
       <div className="bg-base-100 p-3 rounded-lg mt-4">
-        <PaymentElement id="payment-element" />
+        <PaymentElement
+          onReady={() => setButton('Pay Now')}
+          id="payment-element"
+        />
         <button
           className="btn btn-accent w-full mt-5 mb-3"
           disabled={isLoading || !stripe || !elements}
           id="submit"
         >
           <span id="button-text">
-            {isLoading ? (
+            {isLoading || !stripe || !elements ? (
               <>
                 <svg
                   role="status"
@@ -120,7 +122,7 @@ const CheckoutForm = () => {
                 </svg>
               </>
             ) : (
-              'Pay now'
+              button
             )}
           </span>
         </button>

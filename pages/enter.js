@@ -18,7 +18,7 @@ const enter = ({ user }) => {
     const [enabled, setEnabled] = useState(true)
     const [count, setCount] = useState(0)
     const [userID, setUserID] = useState(null)
-    const [teamName, setTeamName] = useState(null)
+    const [teamName, setTeamName] = useState('')
     const [step, setStep] = useState(1);
 
     useEffect(() => {
@@ -110,7 +110,7 @@ const enter = ({ user }) => {
                 <button
                     className=" btn btn-accent max-w-md"
                 >
-                    Not enough Selections
+                    You need 5 Selections
                 </button>
             );
         } else {
@@ -131,7 +131,7 @@ const enter = ({ user }) => {
     switch (step) {
         case 1:
             return (
-                <TeamName setTeamName={setTeamName} setStep={setStep}></TeamName>
+                <TeamName teamName={teamName} setTeamName={setTeamName} setStep={setStep}></TeamName>
 
             )
         case 2:

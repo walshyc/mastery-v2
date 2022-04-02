@@ -3,7 +3,6 @@ import { useCart } from 'react-use-cart'
 import { supabase } from "../client"
 import uuid from 'react-uuid'
 import { newEntries } from '../entries'
-import Image from 'next/image';
 import axios from 'axios';
 import Router from "next/router";
 import { XIcon } from '@heroicons/react/outline';

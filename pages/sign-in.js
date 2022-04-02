@@ -10,8 +10,8 @@ const SignIn = () => {
 
     // function to sign the user in with supabase
     const handleSubmit = async () => {
-
-        const { data, error } = await supabase.auth.signIn({ email })
+        const URL = process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL;
+        const { data, error } = await supabase.auth.signIn({ email }, { redirectTo: `${URL}/enter` })
         if (error) {
             setError(true)
         } else {
@@ -22,12 +22,27 @@ const SignIn = () => {
     }
     if (submitted) {
         return (
-            <div className='flex flex-col gap-5 mt-4'>
-                <div className="text-base-100 font-bold text-4xl">Thanks!</div>
-                <div className="text-base-100 text-md tracking-wide leading-7">
-                    Now just check your email for a link to sign in and enter!
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+                <div className='order-2 md:order-first'>
+
+                    <Image alt='golfer celebrating' src='/tiger.webp' width={600} height={400} className="rounded-2xl"></Image>
                 </div>
-            </div>
+                <div className='order-1 flex flex-col gap-5 mt-4 max-w-lg'>
+                    <div className="text-base-100 font-bold text-4xl">Thanks! </div>
+                    <div className="text-base-100 text-md tracking-wide leading-7">
+                        Now just check your email for a link to sign in and enter!
+                    </div>
+
+
+                </div >
+                <div className="order-3 bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
+                    <div className="flex gap-4">
+                        <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
+                        <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
+                    </div>
+                </div>
+            </div >
+
         )
     }
     return (
@@ -50,3 +65,14 @@ const SignIn = () => {
 }
 
 export default SignIn
+
+export const getServerSideProps = async ({ req }) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+
+    if (user) {
+        return { props: { user }, redirect: { destination: '/enter' } }
+    }
+
+    return { props: { user } }
+
+}

@@ -33,8 +33,8 @@ const Selections = ({
   return (
     <>
       <div className="relative min-h-screen font-inter bg-mgreen py-10">
-        <div className="flex flex-col md:flex-row md:flex-grow md:justify-around w-full max-w-6xl mx-auto px-4 gap-6">
-          <div className="md:w-1/3 flex flex-col gap-3">
+        <div className="flex flex-col lg:flex-row lg:flex-grow lg:justify-around w-full max-w-6xl mx-auto px-4 gap-6">
+          <div className="lg:w-1/3 flex flex-col gap-3">
             <div
               className="btn btn-sm bg-base-100/60 w-32"
               onClick={() => setStep(1)}
@@ -58,11 +58,20 @@ const Selections = ({
                   <div className="text-md font-bold m-2">Ranking</div>
                 </div> */}
                 {selections.length > 0 && (
-                  <div className="fixed z-50 top-4 left-0 right-0 mx-5 md:relative md:mx-0 bg-base-100 card border-2 border-black shadow-2xl">
+                  <div className="fixed z-50 top-4 left-0 right-0 mx-5 lg:relative lg:mx-0 bg-base-100 card border-2 border-black shadow-2xl">
                     {selections.map((p, index) => {
                       return (
                         <div key={index} className="px-4 py-1">
-                          <div key={p.player_id} className="flex gap-4">
+                          <div
+                            key={p.player_id}
+                            className="flex gap-5 item-center"
+                          >
+                            <div
+                              onClick={(e) => handleRemove(e, p)}
+                              className="flex cursor-pointer items-center "
+                            >
+                              <XIcon className="w-4 p-1 text-white bg-red-600 rounded-full"></XIcon>
+                            </div>{' '}
                             <Image
                               src={`/flags/${p.country}.svg`}
                               width={30}
@@ -75,6 +84,7 @@ const Selections = ({
                               <span className="font-light text-sm">
                                 {p.first_name}
                               </span>
+                              
                             </div>
                             <div className="">{p.ranking}</div>
                           </div>
@@ -107,7 +117,7 @@ const Selections = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 md:gap-x-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 lg:gap-x-10">
             {entries.map((player) => (
               <div
                 className={classNames(
@@ -182,7 +192,7 @@ const Selections = ({
                     onClick={(e) => handleRemove(e, player)}
                     className="absolute -right-2 -top-2 border border-black rounded-full"
                   >
-                    <XIcon className="w-4 text-red-700 bg-white rounded-full"></XIcon>
+                    <XIcon className="w-5 p-1 text-white bg-red-600 rounded-full"></XIcon>
                   </div>
                 )}
               </div>
@@ -190,7 +200,7 @@ const Selections = ({
           </div>
 
           {/* <button onClick={() => handleSubmit()} className="p-3 bg-green-50 m-3 rounded-lg">Add Team</button> */}
-          <div className="md:hidden">{showButton()}</div>
+          <div className="lg:hidden">{showButton()}</div>
         </div>
         {/* <div className="fixed bottom-0 left-0 right-0 z-100"><pre className="text4xl text-white bg-black">{JSON.stringify(selections, null, 2)}</pre></div> */}
       </div>

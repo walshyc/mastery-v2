@@ -12,7 +12,7 @@ const Navbar = ({ auth }) => {
   return (
     <header className="bg-white">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="w-full py-6 flex items-center justify-between border-b border-green-900 lg:border-none">
+        <div className="w-full py-6 flex items-center justify-between ">
           <div className="flex items-center">
             <Link href="/">
               <a>
@@ -44,7 +44,7 @@ const Navbar = ({ auth }) => {
                   {totalUniqueItems > 0 && totalUniqueItems}
                 </div>
               </Link>
-              <Link href="/cart" passHref>
+              <Link href="/profile" passHref>
                 <div className="btn btn-sm btn-outline btn-primary border-mgreen">
                   <UserCircleIcon className="w-4"></UserCircleIcon>
                 </div>

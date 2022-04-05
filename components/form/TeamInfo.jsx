@@ -40,7 +40,8 @@ const TeamInfo = () => {
               type="text"
               name="team_name"
               id="team_name"
-              placeholder="Rory's Hackers..."
+              placeholder="Enter team name..."
+              autoComplete="off"
             />
             <button
               onClick={() => setStep(2)}

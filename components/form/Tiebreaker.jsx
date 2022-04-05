@@ -34,6 +34,7 @@ const Tiebreaker = ({
         name="team_name"
         id="team_name"
         placeholder="Enter Number here in digits"
+        autoComplete='off'
         onChange={(e) => setTiebreaker(e.target.value)}
       />
       {tiebreaker.length > 0 && (

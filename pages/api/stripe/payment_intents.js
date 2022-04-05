@@ -13,6 +13,7 @@ const handler = async (req, res) => {
                 automatic_payment_methods: {
                     enabled: true,
                 },
+                receipt_email: req.body.email,
                 metadata: { selections: JSON.stringify(req.body.metadata), user_id: req.body.user_id }
             });
            // console.log(paymentIntent)

@@ -1,14 +1,16 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 import axios from 'axios';
+import { supabase } from '../client';
 
 
 const initialState = {
     combined: [],
     worldRankings: [],
     entries: [],
-    loading: true
-
+    loading: true,
+    picks: [],
+    scores: []
 
 };
 
@@ -29,9 +31,10 @@ export const GlobalProvider = ({ children }) => {
         };
 
         const res = await axios.get(
-            `https://golf-leaderboard-data.p.rapidapi.com/entry-list/294`,
+            `https://golf-leaderboard-data.p.rapidapi.com/entry-list/456`,
             requestOptions
         );
+        console.log(res.data)
         return res.data.results.entry_list
         //console.log(res);
         dispatch({
@@ -91,6 +94,46 @@ export const GlobalProvider = ({ children }) => {
 
     }
 
+    const getTeams = async () => {
+        let { data: selections, error } = await supabase
+            .from('selections')
+            .select('*')
+
+        dispatch({
+            type: 'GET_TEAMS',
+            payload: selections,
+        });
+    }
+
+    const getScoreData = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+                'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY,
+            },
+        };
+
+        const res = await axios.get(
+            `https://golf-leaderboard-data.p.rapidapi.com/leaderboard/386`,
+            requestOptions
+        );
+        console.log(res.data.results.leaderboard)
+        dispatch({
+            type: 'GET_LEADERBOARD',
+            payload: res.data.results.leaderboard,
+        });
+    }
+
+    const matchPlayer = (id) => {
+        const player = state.scores.find(p => p.player_id === id)
+        return player
+    }
+
+    const getPlayer = async (id) => {
+
+    }
+
     return (
         <GlobalContext.Provider
             value={{
@@ -98,9 +141,14 @@ export const GlobalProvider = ({ children }) => {
                 combined: state.combined,
                 worldRankings: state.worldRankings,
                 loading: state.loading,
+                picks: state.picks,
+                scores: state.scores,
+                getTeams,
                 getCombined,
                 getEntries,
-                getRankings
+                getRankings,
+                matchPlayer,
+                getScoreData
             }}
         >
             {children}

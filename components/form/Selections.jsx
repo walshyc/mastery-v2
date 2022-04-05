@@ -1,9 +1,7 @@
 import React from 'react';
-import SelectionsModal from '../../components/SelectionsModal';
 import Image from 'next/image';
 import {
   ArrowNarrowLeftIcon,
-  RewindIcon,
   XIcon,
 } from '@heroicons/react/outline';
 

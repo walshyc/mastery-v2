@@ -11,8 +11,8 @@ const SignIn = () => {
     // function to sign the user in with supabase
     const handleSubmit = async () => {
         
-        const { data, error } = await supabase.auth.signIn({ email })
-        if (error) {
+        const { errors } = await supabase.auth.signIn({ email })
+        if (errors) {
             setError(true)
         } else {
             setSubmitted(true)
@@ -56,7 +56,7 @@ const SignIn = () => {
                     Enter your email address to sign up. You will get an email with a link to sign in. One less password to remember!
 
                 </div>
-                <input className="input input-bordered w-full max-w-md" placeholder='Your email address...' type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
+                <input className="input input-bordered w-full max-w-md" placeholder='Your email address...' type="email" autoComplete='email'  name="" id="" onChange={e => setEmail(e.target.value)} />
                 <button className='btn btn-accent w-full  max-w-md' onClick={() => handleSubmit()}>Sign In</button>
             </main>
         </div>

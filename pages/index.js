@@ -1,9 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { entries } from '../entries'
+import Link from 'next/link'
 import { useState } from 'react'
 import { supabase } from '../client'
-import _ from "lodash";
 import { useRouter } from 'next/router'
 
 export default function Home({ user }) {
@@ -15,7 +14,7 @@ export default function Home({ user }) {
   // function to sign the user in with supabase
   const handleSubmit = async () => {
 
-    const { data, error } = await supabase.auth.signIn({ email })
+    const { error } = await supabase.auth.signIn({ email })
     if (error) {
       setError(true)
     } else {
@@ -84,8 +83,13 @@ export default function Home({ user }) {
               <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
             </div>
           </div>
-          {!user ? <>  <input className="input input-bordered w-full max-w-lg" placeholder='Your email address...' type="email" name="" id="" onChange={e => setEmail(e.target.value)} />
-            <button className='btn btn-accent w-full  max-w-lg' onClick={() => handleSubmit()}>Sign Up</button></> :
+          {!user ? <>
+            <input className="input input-bordered w-full max-w-lg" placeholder='Your email address...' type="email" autoComplete='email' name="" id="" onChange={e => setEmail(e.target.value)} />
+            <div className="flex  gap-5">
+              <button className='btn btn-accent grow ' onClick={() => handleSubmit()}>Sign Up</button>
+              <Link passHref href='/about'><button className='btn btn-accent btn-outline w-1/3' >About</button></Link>
+
+            </div> </> :
             <button className='btn btn-accent w-full  max-w-lg' onClick={() => router.push('/enter')}>Enter Now</button>}
 
         </main>

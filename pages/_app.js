@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }) {
 
 
       </nav> */}
-          <div className="grow bg-mgreen">
+          <div className="grow bg-mgreen  font-inter">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><Component {...pageProps} /></div></div>
           <Footer></Footer>
 

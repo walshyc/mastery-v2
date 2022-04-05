@@ -18,6 +18,18 @@ const AppReducer = (state, action) => {
                 combined: action.payload,
                 loading: false,
             };
+        case 'GET_TEAMS':
+            return {
+                ...state,
+                picks: action.payload,
+                loading: false,
+            };
+        case 'GET_LEADERBOARD':
+            return {
+                ...state,
+                scores: action.payload,
+                loading: false,
+            };
 
         default:
             return {

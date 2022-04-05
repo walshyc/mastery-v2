@@ -24,8 +24,9 @@ const TeamName = ({ setTeamName, setStep, teamName }) => {
           type="text"
           name="team_name"
           id="team_name"
-          placeholder="Team Name..."
+          placeholder="Enter Team Name..."
           onChange={(e) => setTeamName(e.target.value)}
+          autoComplete='off'
         />
         {teamName.length > 0 && (
           <button

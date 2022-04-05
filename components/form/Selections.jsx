@@ -56,7 +56,7 @@ const Selections = ({
                   <div className="text-md font-bold m-2">Ranking</div>
                 </div> */}
                 {selections.length > 0 && (
-                  <div className="fixed z-50 top-4 left-0 right-0 mx-5 lg:relative lg:mx-0 bg-base-100 card border-2 border-black shadow-2xl">
+                  <div className="fixed z-50 top-4 left-0 right-0 mx-5 lg:fixed lg:mx-10 lg:w-80 lg:top-[425px] bg-base-100 card border-2 border-black shadow-2xl w-">
                     {selections.map((p, index) => {
                       return (
                         <div key={index} className="px-4 py-1">

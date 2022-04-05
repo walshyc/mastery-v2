@@ -35,7 +35,7 @@ export const GlobalProvider = ({ children }) => {
             requestOptions
         );
         return res.data.results.entry_list
-        
+
 
     };
     const getRankings = async () => {
@@ -53,10 +53,6 @@ export const GlobalProvider = ({ children }) => {
             requestOptions
         );
         return res.data.results.rankings
-        dispatch({
-            type: 'GET_RANKINGS',
-            payload: res.data.results.rankings,
-        });
 
     };
 
@@ -80,7 +76,7 @@ export const GlobalProvider = ({ children }) => {
         data.sort((a, b) => {
             return a.ranking - b.ranking
         })
-      
+
 
         dispatch({
             type: 'GET_COMBINED',
@@ -94,9 +90,36 @@ export const GlobalProvider = ({ children }) => {
             .from('selections')
             .select('*')
 
+        console.log(selections)
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-host': 'golf-leaderboard-data.p.rapidapi.com',
+                'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY,
+            },
+        };
+
+        const res = await axios.get(
+            `https://golf-leaderboard-data.p.rapidapi.com/leaderboard/386`,
+            requestOptions
+        );
+
+        const leaderboard = res.data.results.leaderboard
+
+        const formatted = selections.map(s => {
+            const matchPlayer = (id) => {
+                const player = leaderboard.find(p => p.player_id === 120007)
+
+                return player
+            }
+            return {
+                name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id))
+            }
+        })
+
         dispatch({
             type: 'GET_TEAMS',
-            payload: selections,
+            payload: formatted,
         });
     }
 
@@ -120,10 +143,7 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
-    const matchPlayer = (id) => {
-        const player = state.scores.find(p => p.player_id === id)
-        return player
-    }
+
 
     const getPlayer = async (id) => {
 
@@ -142,7 +162,7 @@ export const GlobalProvider = ({ children }) => {
                 getCombined,
                 getEntries,
                 getRankings,
-                matchPlayer,
+
                 getScoreData
             }}
         >

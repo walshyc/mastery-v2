@@ -8,15 +8,15 @@ const handler = async (req, res) => {
     if (req.method === "POST") {
         // res.status(200).json({ name: 'John Doe' })
         try {
-           
+
             const { team_name, selections, user_id, tiebreaker } = req.body;
-           
+
             const { data, error } = await supabase
                 .from('selections')
                 .insert([
                     { team_name, picks: selections, user_id, tiebreaker },
                 ])
-          
+            console.log(data)
             res.status(200).send();
         } catch (err) {
             console.log(err)

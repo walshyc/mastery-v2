@@ -112,13 +112,7 @@ const cart = ({ user }) => {
                             or add another team </div>
                     </Link>
                     <span className='text-sm'>Get 3 entries for the price of 2 - €20</span>
-                    <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
-                        <div className="flex gap-4">
-
-                            <div className="text-ukraineblue font-medium tracking-wider"> All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
-                        </div>
-                    </div>
-
+                    
                 </div>
 
 

@@ -7,7 +7,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 
 const scores = () => {
     const { getCombined, combined, picks, getTeams, getScoreData, scores } = useContext(GlobalContext);
-    const [show, setShow] = useState(0);
+    const [show, setShow] = useState(null);
     const [temp, setTemp] = useState([
         {
             "name": "David Walsh",
@@ -1636,7 +1636,29 @@ const scores = () => {
             ]
         }
     ])
+    const tour = {
+        "id": 456,
+        "type": "Stroke Play",
+        "tour_id": 2,
+        "name": "Masters Tournament",
+        "country": "Augusta, USA",
+        "course": "Augusta National Golf Club",
+        "start_date": "2022-04-07 00:00:00",
+        "end_date": "2022-04-10 00:00:00",
+        "timezone": "America/New_York",
+        "prize_fund": "",
+        "fund_currency": "USD",
+        "live_details": ''
+    }
 
+    const handleShow = (index) => {
+        console.log(show)
+        if (show === index) {
+            console.log(123)
+            setShow(null)
+        } else setShow(index)
+
+    }
     useEffect(() => {
         // getCombined()
         // getScoreData()
@@ -1663,12 +1685,30 @@ const scores = () => {
     console.log(picks)
 
     return (
-        <div className=" md:relative mt-8 bg-base-100 card shadow-2xl p-3">
+        <div className=" md:relative mt-8 bg-base-100 card shadow-2xl p-3 ">
+            <div className="relative pt-24 pb-2 rounded-2xl shadow-xl overflow-hidden">
+                <img
+                    className="absolute inset-0 h-full w-full object-cover"
+                    src="/masters-scene.webp"
+                    alt="masters scene"
+                />
+                <div className="absolute inset-0 bg-green-500 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-t from-mgreen via-mgreen opacity-70" />
+                <div className="relative px-8 flex flex-col">
+                    <div className="font-bold text-xl  text-ukraineyellow">{tour.name}</div>
+                    <div className="font-bold text-md text-base-100 pb-2">{tour.course}</div>
+                    <div className="text-xs text-gray-100">Updated 3mins ago</div>
+
+                </div>
+            </div>
             <div>
                 <div className="flow-root mt-6">
                     <ul className="-my-5 divide-y divide-gray-200">
                         {temp.map((team, i) => (
-                            <li key={team.id} className="py-4" onClick={() => setShow(i)}>
+                            <li key={team.id} className={show === i ? "py-4" : 'py-4'} onClick={() => {
+                                handleShow(i)
+                                setShow(i)
+                            }}>
                                 <div className="flex items-center space-x-4">
                                     <div className="flex-shrink-0">
                                         {/* <img className="h-8 w-8 rounded-full" src={team.imageUrl} alt="" /> */}
@@ -1689,7 +1729,7 @@ const scores = () => {
                                     <div>
                                         <a
                                             href="#"
-                                            className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
+                                            className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-ukraineyellow hover:bg-yellow-400"
                                         >
                                             {getTotalToPar(team.picks)}
                                         </a>

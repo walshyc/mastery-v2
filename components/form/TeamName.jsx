@@ -31,7 +31,7 @@ const TeamName = ({ setTeamName, setStep, teamName }) => {
         {teamName.length > 0 && (
           <button
             onClick={() => setStep(2)}
-            className="btn btn-outline btn-accent max-w-lg"
+            className="btn  btn-accent max-w-lg"
           >
             Next
           </button>

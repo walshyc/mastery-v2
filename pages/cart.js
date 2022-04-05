@@ -15,6 +15,49 @@ const cart = ({ user }) => {
         cartTotal
     } = useCart();
     console.log(items)
+    let total;
+
+    switch (items.length) {
+        case 1:
+            total = 1000
+            break;
+        case 2:
+            total = 2000
+            break;
+        case 3:
+            total = 2000
+            break;
+        case 4:
+            total = 3000
+            break;
+        case 5:
+            total = 4000
+            break;
+        case 6:
+            total = 4000
+            break;
+        case 7:
+            total = 5000
+            break;
+        case 8:
+            total = 6000
+            break;
+        case 9:
+            total = 6000
+            break;
+        case 10:
+            total = 7000
+            break;
+        case 11 :
+            total = 8000
+            break;
+        case  12:
+            total = 8000
+            break;
+
+        default:
+            break;
+    }
 
 
     if (isEmpty) return (
@@ -30,7 +73,7 @@ const cart = ({ user }) => {
 
         <div className='max-w-2xl mx-4 flex flex-col space-y-4'>
             <div className="text-base-100 font-bold text-4xl mt-3">Your Teams</div>
-            <div className="text-base-100 text-md tracking-wide">
+            <div className="text-base-100 text-sm p-4 tracking-wide">
                 Below is a list of your teams. You can add more or finish up by paying!
             </div>
             <div className='grid grid-cols-1 bg-base-100 rounded-lg space-y-5'>
@@ -56,7 +99,7 @@ const cart = ({ user }) => {
                         <div className="">Total</div>
                         <div className="text-gray-400 text-sm font-normal">All monies raised in aid of The Red Cross Ukraine Crisis Appeal </div>
                     </div>
-                    <div className="mr-6">€{(cartTotal * 0.01).toFixed(2)}</div>
+                    <div className="mr-6">€{(total * 0.01).toFixed(2)}</div>
                 </div>
                 <Link href='/checkout' passHref>
                     <div className="btn btn-accent mx-0 md:mx-12">
@@ -69,6 +112,14 @@ const cart = ({ user }) => {
                         <div className="text-mgreen">
                             or add another team </div>
                     </Link>
+                    <span className='text-sm'>Get 3 entries for the price of 2 - €20</span>
+                    <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
+                        <div className="flex gap-4">
+
+                            <div className="text-ukraineblue font-medium tracking-wider"> All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
+                        </div>
+                    </div>
+
                 </div>
 
 

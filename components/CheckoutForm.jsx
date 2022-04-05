@@ -14,7 +14,50 @@ const CheckoutForm = () => {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { cartTotal, emptyCart } = useCart();
+  const { cartTotal, emptyCart, items } = useCart();
+  let total;
+
+  switch (items.length) {
+    case 1:
+      total = 1000;
+      break;
+    case 2:
+      total = 2000;
+      break;
+    case 3:
+      total = 2000;
+      break;
+    case 4:
+      total = 3000;
+      break;
+    case 5:
+      total = 4000;
+      break;
+    case 6:
+      total = 4000;
+      break;
+    case 7:
+      total = 5000;
+      break;
+    case 8:
+      total = 6000;
+      break;
+    case 9:
+      total = 6000;
+      break;
+    case 10:
+      total = 7000;
+      break;
+    case 11:
+      total = 8000;
+      break;
+    case 12:
+      total = 8000;
+      break;
+
+    default:
+      break;
+  }
 
   useEffect(() => {
     if (!stripe) {
@@ -63,7 +106,7 @@ const CheckoutForm = () => {
       confirmParams: {
         // Make sure to change this to your payment completion page
         return_url: 'https://mastery.golf/thanks',
-       // return_url: 'http://localhost:3000/thanks',
+        // return_url: 'http://localhost:3000/thanks',
       },
     });
 
@@ -89,7 +132,7 @@ const CheckoutForm = () => {
     >
       <div className="text-base-100 font-bold text-4xl mt-6">Checkout</div>
       <div className="text-base-100 mt-2 text-2xl">
-        €{(cartTotal * 0.01).toFixed(2)}
+        €{(total * 0.01).toFixed(2)}
       </div>
       <div className="bg-base-100 p-3 rounded-lg mt-4">
         <PaymentElement

@@ -38,35 +38,47 @@ const checkout = ({ user }) => {
         // Create PaymentIntent as soon as the page loads
         let total;
 
-        switch (items.length) {
-            case 1:
-                total = 1000
-                break;
-            case 2 || 3:
-                total = 2000
-                break;
-            case 4:
-                total = 3000
-                break;
-            case 5 || 6:
-                total = 4000
-                break;
-            case 7:
-                total = 5000
-                break;
-            case 8 || 9:
-                total = 6000
-                break;
-            case 10:
-                total = 7000
-                break;
-            case 11 || 12:
-                total = 8000
-                break;
+    switch (items.length) {
+        case 1:
+            total = 1000
+            break;
+        case 2:
+            total = 2000
+            break;
+        case 3:
+            total = 2000
+            break;
+        case 4:
+            total = 3000
+            break;
+        case 5:
+            total = 4000
+            break;
+        case 6:
+            total = 4000
+            break;
+        case 7:
+            total = 5000
+            break;
+        case 8:
+            total = 6000
+            break;
+        case 9:
+            total = 6000
+            break;
+        case 10:
+            total = 7000
+            break;
+        case 11 :
+            total = 8000
+            break;
+        case  12:
+            total = 8000
+            break;
 
-            default:
-                break;
-        }
+        default:
+            break;
+    }
         fetch("/api/stripe/payment_intents", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

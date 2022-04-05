@@ -40,7 +40,7 @@ const Tiebreaker = ({
       {tiebreaker.length > 0 && (
         <button
           onClick={() => handleAddTeam()}
-          className="btn btn-outline btn-accent max-w-md"
+          className="btn  btn-accent max-w-md"
         >
           Next
         </button>

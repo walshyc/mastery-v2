@@ -113,9 +113,11 @@ export const GlobalProvider = ({ children }) => {
                 return player
             }
             return {
-                name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id))
+                id: s.id, name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id))
             }
         })
+
+        console.log(formatted)
 
         dispatch({
             type: 'GET_TEAMS',

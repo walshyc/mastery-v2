@@ -34,13 +34,8 @@ export const GlobalProvider = ({ children }) => {
             `https://golf-leaderboard-data.p.rapidapi.com/entry-list/456`,
             requestOptions
         );
-        console.log(res.data)
         return res.data.results.entry_list
-        //console.log(res);
-        dispatch({
-            type: 'GET_ENTRIES',
-            payload: res.data.results.entry_list,
-        });
+        
 
     };
     const getRankings = async () => {
@@ -85,7 +80,7 @@ export const GlobalProvider = ({ children }) => {
         data.sort((a, b) => {
             return a.ranking - b.ranking
         })
-        console.log(data)
+      
 
         dispatch({
             type: 'GET_COMBINED',

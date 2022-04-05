@@ -1,7 +1,7 @@
 import { supabase } from '../client'
 
 export default function Protected({ user }) {
-  console.log({ user })
+ 
   return (
     <div style={{ maxWidth: '420px', margin: '96px auto' }}>
       <h2>Hello from protected route</h2>

@@ -681,7 +681,7 @@ const enter = ({ user }) => {
         setCount(0)
         setStep(1);
         Router.push("/cart")
-        //  console.log(items)
+
     }
 
     // create function that sends team_name and selections to /_add_team api endpoint
@@ -767,8 +767,7 @@ const enter = ({ user }) => {
     };
 
 
-    // newEntries.sort((a, b) => (parseInt(a.ranking) - parseInt(b.ranking) ? 1 : -1))
-    // console.log(newEntries)
+
 
     switch (step) {
         case 1:

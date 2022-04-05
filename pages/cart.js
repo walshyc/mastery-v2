@@ -14,7 +14,6 @@ const cart = ({ user }) => {
         removeItem,
         cartTotal
     } = useCart();
-    console.log(items)
     let total;
 
     switch (items.length) {

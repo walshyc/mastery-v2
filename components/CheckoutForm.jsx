@@ -105,8 +105,8 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        //return_url: 'https://mastery.golf/thanks',
-         return_url: 'http://localhost:3000/thanks',
+        return_url: 'https://mastery.golf/thanks',
+        // return_url: 'http://localhost:3000/thanks',
       },
     });
 

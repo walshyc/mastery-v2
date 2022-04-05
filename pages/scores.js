@@ -12,8 +12,7 @@ const scores = () => {
         getCombined()
         getTeams()
         getScoreData()
-        console.log(picks)
-        console.log(1)
+
     }, [])
 
     return (

@@ -3,7 +3,6 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const handler = async (req, res) => {
-    //console.log(req)
     if (req.method === "POST") {
         try {
 
@@ -16,7 +15,6 @@ const handler = async (req, res) => {
                 receipt_email: req.body.email,
                 metadata: { selections: JSON.stringify(req.body.metadata), user_id: req.body.user_id }
             });
-           // console.log(paymentIntent)
 
             res.send({
                 clientSecret: paymentIntent.client_secret,

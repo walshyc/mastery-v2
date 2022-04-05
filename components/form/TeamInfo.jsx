@@ -16,7 +16,6 @@ const TeamInfo = () => {
     ukie: '',
     row: '',
   });
-  console.log(usaSelected);
 
   const handleSelect = (player) => {
     if (usaSelected === null) {

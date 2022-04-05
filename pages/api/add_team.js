@@ -6,19 +6,17 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 const handler = async (req, res) => {
     if (req.method === "POST") {
-        console.log(req.body)
         // res.status(200).json({ name: 'John Doe' })
         try {
-            console.log(req.body)
+           
             const { team_name, selections, user_id, tiebreaker } = req.body;
-            console.log(tiebreaker)
+           
             const { data, error } = await supabase
                 .from('selections')
                 .insert([
                     { team_name, picks: selections, user_id, tiebreaker },
                 ])
-            console.log(data)
-            console.log(error)
+          
             res.status(200).send();
         } catch (err) {
             console.log(err)

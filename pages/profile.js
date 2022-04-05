@@ -42,16 +42,7 @@ const profile = () => {
         }
     }
 
-    const fetchTeams = async () => {
-        console.log(profile)
-        //console.log(profile.id)
-        const { data } = await supabase
-            .from('selections')
-            .select("*")
-            .eq('user_id', '453b8e48-553f-453b-a8e7-c7d1f39754bc')
-        console.log(data)
-        setTeams(data)
-    }
+    
 
     // function to sign out the user
     const handleSignOut = async () => {
@@ -59,7 +50,6 @@ const profile = () => {
         router.push('/sign-in')
     }
 
-    console.log(teams)
 
     if (!profile) return null;
     if (!teams) return (<div><div className="btn btn-accent" onClick={() => handleSignOut()}>Sign out</div></div>)

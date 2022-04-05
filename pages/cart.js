@@ -78,6 +78,7 @@ const cart = ({ user }) => {
             <Link href='/enter' passHref>
                 <div className="alert bg-ukraineyellow font-bold shadow-lg">
                     <div>
+                        😍
                         <span>Get 3 entries for the price of 2 - €20</span>
                     </div>
                 </div></Link>

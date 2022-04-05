@@ -59,7 +59,7 @@ const handler = async (req, res) => {
                     //     user_id: selection.user_id,
                     //     tiebreaker: selection.tiebreaker
                     // })
-                    await axios.post(`https://calm-crumble-c953d1.netlify.app/api/add_team`, {
+                    await axios.post(`https://mastery.golfp/api/add_team`, {
                         team_name: selection.name,
                         selections: selection.picks,
                         user_id: selection.user_id,

@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }) {
     <GlobalProvider>
       <CartProvider>
         <Head>
+          <title>Mastery 2022 - Ukraine Fundraiser</title>
           {/* This ways to add css on global website use local asset folder withhtml link tag */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />

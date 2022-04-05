@@ -28,7 +28,7 @@ const handler = async (req, res) => {
         // Get the object from stripeEvent
         const { selections, user_id, } = stripeEvent.data.object.metadata;
 
-
+        console.log(selections)
 
 
 
@@ -51,10 +51,11 @@ const handler = async (req, res) => {
                     return sel;
                 })
 
-                console.log(fullSelections)
+       
                 // use axios to post each fullselecitons to the add_team api usinf a for of loop
                 for (const selection of fullSelections) {
-                    
+               
+
                     // await axios.post(`http://localhost:3000/api/add_team`, {
                     //     team_name: selection.name,
                     //     selections: selection.picks,
@@ -69,10 +70,10 @@ const handler = async (req, res) => {
                     })
                 }
 
-                // await axios.post('https://mastery.golf/api/sendgrid', {
-                //     email: stripeEvent.data.object.receipt_email,
-                //     selections: fullSelections
-                // })
+                await axios.post('https://mastery.golf/api/sendgrid', {
+                    email: stripeEvent.data.object.receipt_email,
+                    selections: fullSelections
+                })
 
 
                 break;

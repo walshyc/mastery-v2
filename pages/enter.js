@@ -23,7 +23,7 @@ const enter = ({ user }) => {
     const [userID, setUserID] = useState(null)
     const [teamName, setTeamName] = useState('')
     const [tiebreaker, setTiebreaker] = useState('')
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(1);
 
 
    

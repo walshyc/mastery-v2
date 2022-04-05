@@ -1,7 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { useCart } from 'react-use-cart';
-import { ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/outline';
+import {
+  QuestionMarkCircleIcon,
+  ShoppingCartIcon,
+  UserCircleIcon,
+} from '@heroicons/react/outline';
 const Navbar = ({ auth }) => {
   const navigation = [
     { name: 'Enter', href: '/enter' },
@@ -25,6 +29,11 @@ const Navbar = ({ auth }) => {
           </div>
           {auth === 'not-authenticated' ? (
             <div className="ml-10 flex gap-2">
+              <Link href="/about" passHref>
+                <div className="btn btn-sm btn-outline btn-primary border-mgreen">
+                  <QuestionMarkCircleIcon className="w-4"></QuestionMarkCircleIcon>
+                </div>
+              </Link>
               <Link href="/sign-in" passHref>
                 <div className="btn btn-sm btn-outline btn-primary border-mgreen">
                   Sign In
@@ -33,15 +42,9 @@ const Navbar = ({ auth }) => {
             </div>
           ) : (
             <div className="ml-10 flex gap-2">
-              <Link href="/enter" passHref>
+              <Link href="/about" passHref>
                 <div className="btn btn-sm btn-outline btn-primary border-mgreen">
-                  Enter
-                </div>
-              </Link>
-              <Link href="/cart" passHref>
-                <div className="btn btn-sm btn-outline btn-primary border-mgreen">
-                  <ShoppingCartIcon className="w-4"></ShoppingCartIcon>
-                  {totalUniqueItems > 0 && totalUniqueItems}
+                  <QuestionMarkCircleIcon className="w-4"></QuestionMarkCircleIcon>
                 </div>
               </Link>
               <Link href="/profile" passHref>
@@ -49,6 +52,14 @@ const Navbar = ({ auth }) => {
                   <UserCircleIcon className="w-4"></UserCircleIcon>
                 </div>
               </Link>
+              {totalUniqueItems > 0 && (
+                <Link href="/cart" passHref>
+                  <div className="btn btn-sm btn-outline btn-primary border-mgreen">
+                    <ShoppingCartIcon className="w-4"></ShoppingCartIcon>
+                    {totalUniqueItems > 0 && totalUniqueItems}
+                  </div>
+                </Link>
+              )}
             </div>
           )}
         </div>

@@ -7203,8 +7203,8 @@ const scores = () => {
             </div>
 
                 <div className="btn-group w-full">
-                    <button onClick={() => handleSwitch('leaderboard')} className={showFavs === false ? "btn btn-accent w-1/2 " : 'btn  w-1/2'}>Leaderboard</button>
-                    <button onClick={() => handleSwitch('favourites')} className={showFavs === true ? "btn btn-accent w-1/2 " : 'btn  w-1/2'}>Favourites</button>
+                    <button onClick={() => handleSwitch('leaderboard')} className={showFavs === false ? "btn btn-accent w-1/2  rounded-none" : 'btn  w-1/2 rounded-none'}>Leaderboard</button>
+                    <button onClick={() => handleSwitch('favourites')} className={showFavs === true ? "btn btn-accent w-1/2  rounded-none" : 'btn  w-1/2 rounded-none'}>Favourites</button>
                 </div>
             <div className='px-3'>
                 <div className="flow-root mt-6">

@@ -47,10 +47,10 @@ const cart = ({ user }) => {
         case 10:
             total = 7000
             break;
-        case 11 :
+        case 11:
             total = 8000
             break;
-        case  12:
+        case 12:
             total = 8000
             break;
 
@@ -75,6 +75,12 @@ const cart = ({ user }) => {
             <div className="text-base-100 text-sm p-4 tracking-wide">
                 Below is a list of your teams. You can add more or finish up by paying!
             </div>
+            <Link href='/enter' passHref>
+                <div className="alert bg-ukraineyellow font-bold shadow-lg">
+                    <div>
+                        <span>Get 3 entries for the price of 2 - €20</span>
+                    </div>
+                </div></Link>
             <div className='grid grid-cols-1 bg-base-100 rounded-lg space-y-5'>
                 {items.map((item, indx) => (
                     <div className='flex justify-start gap-10 bg-base-100 p-3 rounded-lg border-b-2' key={item.id}>
@@ -112,7 +118,7 @@ const cart = ({ user }) => {
                             or add another team </div>
                     </Link>
                     <span className='text-sm'>Get 3 entries for the price of 2 - €20</span>
-                    
+
                 </div>
 
 

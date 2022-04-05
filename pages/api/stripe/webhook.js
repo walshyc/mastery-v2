@@ -50,21 +50,21 @@ const handler = async (req, res) => {
 
                     return sel;
                 })
-
+                console.log(fullSelections)
                 // use axios to post each fullselecitons to the add_team api usinf a for of loop
                 for (const selection of fullSelections) {
-                    // await axios.post(`http://localhost:3000/api/add_team`, {
-                    //     team_name: selection.name,
-                    //     selections: selection.picks,
-                    //     user_id: selection.user_id,
-                    //     tiebreaker: selection.tiebreaker
-                    // })
-                    await axios.post(`https://mastery.golfp/api/add_team`, {
+                    await axios.post(`http://localhost:3000/api/add_team`, {
                         team_name: selection.name,
                         selections: selection.picks,
                         user_id: selection.user_id,
                         tiebreaker: selection.tiebreaker
                     })
+                    // await axios.post(`https://mastery.golfp/api/add_team`, {
+                    //     team_name: selection.name,
+                    //     selections: selection.picks,
+                    //     user_id: selection.user_id,
+                    //     tiebreaker: selection.tiebreaker
+                    // })
                 }
                 break;
 

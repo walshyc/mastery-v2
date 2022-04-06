@@ -90,7 +90,7 @@ export const GlobalProvider = ({ children }) => {
             .from('selections')
             .select('*')
 
-        console.log(selections)
+        //console.log(selections.sort((a, b) => a.id - b.id))
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -100,15 +100,17 @@ export const GlobalProvider = ({ children }) => {
         };
 
         const res = await axios.get(
-            `https://golf-leaderboard-data.p.rapidapi.com/leaderboard/386`,
+            `https://golf-leaderboard-data.p.rapidapi.com/leaderboard/456`,
             requestOptions
         );
 
         const leaderboard = res.data.results.leaderboard
 
+        console.log(leaderboard)
+
         const formatted = selections.map(s => {
             const matchPlayer = (id) => {
-                const player = leaderboard.find(p => p.player_id === 120007)
+                const player = leaderboard.find(p => p.player_id === id)
 
                 return player
             }
@@ -117,7 +119,7 @@ export const GlobalProvider = ({ children }) => {
             }
         })
 
-        console.log(formatted)
+        // console.log(formatted)
 
         dispatch({
             type: 'GET_TEAMS',

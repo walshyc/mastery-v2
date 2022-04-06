@@ -10,7 +10,8 @@ const initialState = {
     entries: [],
     loading: true,
     picks: [],
-    scores: []
+    scores: [],
+    updated: undefined
 
 };
 
@@ -105,8 +106,8 @@ export const GlobalProvider = ({ children }) => {
         );
 
         const leaderboard = res.data.results.leaderboard
-
-        console.log(leaderboard)
+        const updated = res.data.results.tournament.live_details.updated
+        console.log(updated)
 
         const formatted = selections.map(s => {
             const matchPlayer = (id) => {
@@ -123,7 +124,7 @@ export const GlobalProvider = ({ children }) => {
 
         dispatch({
             type: 'GET_TEAMS',
-            payload: formatted,
+            payload: { data: formatted, updated: updated },
         });
     }
 
@@ -149,6 +150,8 @@ export const GlobalProvider = ({ children }) => {
 
 
 
+
+
     const getPlayer = async (id) => {
 
     }
@@ -162,11 +165,11 @@ export const GlobalProvider = ({ children }) => {
                 loading: state.loading,
                 picks: state.picks,
                 scores: state.scores,
+                updated: state.updated,
                 getTeams,
                 getCombined,
                 getEntries,
                 getRankings,
-
                 getScoreData
             }}
         >

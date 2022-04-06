@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { GlobalContext } from '../context/GlobalState'
-import axios from 'axios'
-import Image from 'next/image';
-import { ChevronDownIcon, ChevronUpIcon, StarIcon } from '@heroicons/react/outline';
-import { StarIcon as StarSolid } from '@heroicons/react/solid';
-
-
+import Scoreboard from '../components/Scoreboard';
+import Moment from 'react-moment';
 
 const scores = () => {
-    const { getCombined, combined, picks, getTeams, getScoreData, scores } = useContext(GlobalContext);
+    const { picks, getTeams, updated } = useContext(GlobalContext);
     const [favs, setFavs] = useState([])
     const [showFavs, setShowFavs] = useState(false)
     const [show, setShow] = useState(null);
@@ -37,12 +32,11 @@ const scores = () => {
 
 
     const handleShow = (index) => {
-        //  console.log(show)
         if (show != null) {
-            // console.log(123)
+            setShow(null)
+        } else if (show === index) {
             setShow(null)
         } else setShow(index)
-
     }
 
     useEffect(() => {
@@ -71,12 +65,6 @@ const scores = () => {
         setTemp(picks)
     }, [picks])
 
-    //function that uses ths id of the player in picks to match the player in scores
-    // const matchPlayer = (id) => {
-    //     const player = scores.find(p => p.player_id === id)
-    //     return player
-    // }
-
     // function to get the sum of total_to_par for each player in picks
     const getTotalToPar = (arr) => {
         let total = 0;
@@ -86,24 +74,17 @@ const scores = () => {
         return total
     }
 
-    const handleFav = (id) => {
-
+    const handleFav = (e, id) => {
+        e.stopPropagation()
         // check if id is in favs state
         if (favs.includes(id)) {
-
             // if it is, remove it
             const newFavs = favs.filter(fav => fav !== id)
             setFavs(newFavs)
-
         } else {
             // if it is not, add it
             setFavs([...favs, id])
-
-
-
         }
-
-
     }
     const handleSwitch = (type) => {
         if (type === 'favourites') {
@@ -111,6 +92,7 @@ const scores = () => {
         } else {
             setShowFavs(false)
         }
+        setShow(null)
     }
 
     //console.log(picks)
@@ -130,7 +112,8 @@ const scores = () => {
                 <div className="relative px-8 flex flex-col">
                     <div className="font-bold text-xl  text-ukraineyellow">{tour.name}</div>
                     <div className="font-bold text-md text-base-100 pb-2">{tour.course}</div>
-                    <div className="text-xs text-gray-100">Updated 3mins ago</div>
+                    {updated && ( <div className="text-xs text-gray-100 pb-4">Updated <Moment fromNow>{updated}</Moment></div>)}
+                   
 
                 </div>
             </div>
@@ -142,92 +125,17 @@ const scores = () => {
 
             {picks.length < 1 ? (
                 <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
-            ): (<div className='px-3'>
+            ) : (<div className='px-3'>
                 <div className="flow-root mt-6">
 
                     <ul className="-my-5 divide-y divide-gray-300">
-
-
-                        {favs && showFavs ? favsgroup.map((team, i) => (
-                            <li key={team.id} className={show === i ? "py-4" : 'py-4'} onClick={() => {
-                                handleShow(i)
-                                setShow(i)
-                            }}>
-                                <div className="flex items-center space-x-4">
-                                    {favs.includes(team.id) ? <StarSolid onClick={() => handleFav(team.id)} className='w-5'></StarSolid> : <StarIcon onClick={() => handleFav(team.id)} className='w-5'></StarIcon>}
-
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">{team.name}</p>
-                                        {/* <p className="text-sm text-gray-500 truncate">{'@' + team.handle}</p> */}
-                                    </div>
-                                    <div>
-                                        <a
-                                            href="#"
-                                            className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-ukraineyellow hover:bg-yellow-400"
-                                        >
-                                            {getTotalToPar(team.picks)}
-                                        </a>
-                                    </div>
-                                </div>
-                                {show != null && show === i && (
-                                    <div className="flex justify-around w-full mt-1 overflow-x-scrol">{team.picks.map(p => (
-                                        <div className="text-xs flex flex-col items-center" key={p.player_id}>
-                                            <div className=""><img src={`/headshots/${p.player_id}.webp`} className='rounded-full w-12'></img></div>
-                                            <div className="font-medium">{p.last_name}</div>
-                                            <div className='text-sm font-bold'>{p.total_to_par}</div>
-
-                                            <div className="text-[0.6rem]">{p.holes_played}</div>
-                                        </div>
-                                    ))}</div>
-                                )}
-                            </li>
-                        )) : temp.map((team, i) => (
-                            <li key={team.id} className={show === i ? "py-4" : 'py-4'} onClick={() => {
-                                handleShow(i)
-                                setShow(i)
-                            }}>
-                                <div className="flex items-center space-x-4">
-                                    {favs.includes(team.id) ? <StarSolid onClick={() => handleFav(team.id)} className='w-5'></StarSolid> : <StarIcon onClick={() => handleFav(team.id)} className='w-5'></StarIcon>}
-
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">{team.name}</p>
-                                        {/* <p className="text-sm text-gray-500 truncate">{'@' + team.handle}</p> */}
-                                    </div>
-                                    <div>
-                                        <a
-                                            href="#"
-                                            className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-ukraineyellow hover:bg-yellow-400"
-                                        >
-                                            {getTotalToPar(team.picks)}
-                                        </a>
-                                    </div>
-                                </div>
-                                {show != null && show === i && (
-                                    <div className="flex justify-around w-full mt-1 overflow-x-scrol">{team.picks.map(p => (
-                                        <div className="text-xs flex flex-col items-center" key={p.player_id}>
-                                            <div className=""><img src={`/headshots/${p.player_id}.webp`} className='rounded-full w-12'></img></div>
-                                            <div className="font-medium">{p.last_name}</div>
-                                            <div className='text-sm font-bold'>{p.total_to_par}</div>
-
-                                            <div className="text-[0.6rem]">{p.holes_played}</div>
-                                        </div>
-                                    ))}</div>
-                                )}
-                            </li>
-                        ))}
+                        {favs && showFavs ? (<Scoreboard scoredata={favsgroup} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)
+                            : (<Scoreboard scoredata={picks} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)}
                     </ul>
                 </div>
-                {/* <div className="mt-6">
-                    <a
-                        href="#"
-                        className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                    >
-                        View all
-                    </a>
-                </div> */}
-            </div>)}
-            
-        </div >
+            </div>
+            )}
+        </div>
     )
 }
 

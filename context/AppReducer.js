@@ -21,7 +21,8 @@ const AppReducer = (state, action) => {
         case 'GET_TEAMS':
             return {
                 ...state,
-                picks: action.payload,
+                picks: action.payload.data,
+                updated: action.payload.updated,
                 loading: false,
             };
         case 'GET_LEADERBOARD':

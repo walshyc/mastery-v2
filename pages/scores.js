@@ -32,9 +32,7 @@ const scores = () => {
 
 
     const handleShow = (index) => {
-        if (show != null) {
-            setShow(null)
-        } else if (show === index) {
+        if (show === index) {
             setShow(null)
         } else setShow(index)
     }

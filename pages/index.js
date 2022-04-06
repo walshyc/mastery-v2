@@ -52,10 +52,7 @@ export default function Home({ user }) {
   return (
     <div >
       <Head>
-        <title>Mastery 2022 - Ukraine Fundraiser</title>
-        <meta name="description" content="Mastery 2022 - fantasy golf competition for the 2022 Masters Golf. All profits donated to the Irish Red Cross Ukarine Appeal" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+
 
       </Head>
       <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 gap-10 mt-8">

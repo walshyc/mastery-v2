@@ -49,6 +49,17 @@ function MyApp({ Component, pageProps }) {
       <CartProvider>
         <Head>
           <title>Mastery 2022 - Ukraine Fundraiser</title>
+          <meta name="description" content="Mastery 2022 - fantasy golf competition for the 2022 Masters Golf. All profits donated to the Irish Red Cross Ukarine Appeal" />
+          <meta charset='utf-8' />
+          <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+          <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
+          <link rel="manifest" href="/manifest.json" />
+          <link href="/favicon.ico" rel='icon' sizes='16x16' />
+          <link href="/favicon.ico" rel='icon' sizes='32x32' />
+          <link rel="apple-touch-icon" href="/logo512.png"></link>
+          <meta name="theme-color" content="#056A4B" />
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           {/* This ways to add css on global website use local asset folder withhtml link tag */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
@@ -56,25 +67,6 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <div className="flex flex-col min-h-screen bg-gradient-to-b from-green-500 to-green-700">
           <Navbar auth={authenticatedState}></Navbar>
-          {/* <nav className='flex justify-around m-3'>
-
-        <Link href='/' passHref>
-          <h1>Mastery</h1>
-        </Link>
-        <Link href='/profile' passHref>
-          <h1>Profile</h1>
-        </Link>
-        {authenticatedState === 'not-authenticated' && (
-          <Link href='/sign-in' passHref>
-            <h1>Sign In</h1>
-          </Link>
-        )}
-        <Link href='/protected' passHref>
-          <h1>Protected</h1>
-        </Link>
-
-
-      </nav> */}
           <div className="grow  font-inter">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><Component {...pageProps} /></div></div>
           <Footer></Footer>

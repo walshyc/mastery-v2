@@ -13,7 +13,7 @@ const Scoreboard = ({
   return scoredata.map((team, i) => (
     <li
       key={team.id}
-      className={show === i ? 'py-4 cursor-pointer' : 'py-4 cursor-pointer'}
+      className={show === i ? 'py-3 cursor-pointer' : 'py-3 cursor-pointer'}
       onClick={() => {
         handleShow(i);
       }}

@@ -5,7 +5,6 @@ import { StarIcon as StarSolid } from '@heroicons/react/solid';
 const Scoreboard = ({
   scoredata,
   handleFav,
-  getTotalToPar,
   handleShow,
   favs,
   show,
@@ -39,7 +38,9 @@ const Scoreboard = ({
         </div>
         <div>
           <div className="badge badge-accent p-3 mr-6 font-bold">
-            {getTotalToPar(team.picks)}
+            {team.total_to_par > 0
+              ? `+${team.total_to_par}`
+              : team.total_to_par}
           </div>
         </div>
       </div>
@@ -50,7 +51,7 @@ const Scoreboard = ({
               className="text-xs flex flex-col items-center"
               key={p.player_id}
             >
-              <div className="">
+              <div className="grow">
                 <img
                   src={`/headshots/${p.player_id}.webp`}
                   className="rounded-full w-12"

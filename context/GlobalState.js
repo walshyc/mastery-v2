@@ -107,7 +107,13 @@ export const GlobalProvider = ({ children }) => {
 
         const leaderboard = res.data.results.leaderboard
         const updated = res.data.results.tournament.live_details.updated
-        console.log(updated)
+        const getTotalToPar = (arr) => {
+            let total = 0;
+            arr.forEach(player => {
+                total += player.total_to_par
+            })
+            return total
+        }
 
         const formatted = selections.map(s => {
             const matchPlayer = (id) => {
@@ -115,12 +121,33 @@ export const GlobalProvider = ({ children }) => {
 
                 return player
             }
+
+            // loop over s picks and use reduce to sum
+            const total = s.picks.reduce((acc, curr) => {
+
+
+                return acc + curr.player_id
+            }, 0)
+
+
             return {
-                id: s.id, name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id))
+                id: s.id, name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id)), total: total, total_to_par: getTotalToPar(s.picks.map(sel => matchPlayer(sel.player_id)))
             }
         })
 
-        // console.log(formatted)
+        // sort formatted alphabetically by name
+        // formatted.sort((a, b) => {
+        //     if (a.name < b.name) {
+        //         return -1;
+        //     } else if (a.name > b.name) {
+        //         return 1;
+        //     } else {
+        //         return 0;
+        //     }
+        // })
+
+        //console.log(formatted)
+        //console.log(formatted.sort((a, b) => b.total - a.total))
 
         dispatch({
             type: 'GET_TEAMS',

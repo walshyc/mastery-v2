@@ -27,7 +27,15 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
           {i != 0 && team.position === arr[i - 1].position ? (
             <div className="w-4"></div>
           ) : (
-            <div className={team.position.length > 2 ? "text-sm font-medium text-gray-900 w-4":"text-sm font-medium text-gray-900 w-4 "}>{team.position}</div>
+            <div
+              className={
+                team.position.length > 2
+                  ? 'text-sm font-medium text-gray-900 w-4'
+                  : 'text-sm font-medium text-gray-900 w-4 '
+              }
+            >
+              {team.position}
+            </div>
           )}
         </div>
 
@@ -60,10 +68,12 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
               </div>
               <div className="font-medium select-none">{p.last_name}</div>
               <div className="text-sm font-bold select-none">
-                {p.total_to_par}
+                {p.status === 'wd' ? p.total_to_par + 5 : p.total_to_par}
               </div>
 
-              <div className="text-[0.6rem] select-none">{p.holes_played}</div>
+              <div className="text-[0.6rem] select-none">
+                {p.status === 'wd' ? 'WD' : p.holes_played}
+              </div>
             </div>
           ))}
         </div>

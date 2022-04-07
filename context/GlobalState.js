@@ -111,7 +111,11 @@ export const GlobalProvider = ({ children }) => {
         const getTotalToPar = (arr) => {
             let total = 0;
             arr.forEach(player => {
-                total += player.total_to_par
+                if (player.status == 'wd') {
+                    total = total + player.total_to_par + 5;
+                } else {
+                    total += player.total_to_par
+                }
             })
             return total
         }
@@ -127,8 +131,7 @@ export const GlobalProvider = ({ children }) => {
 
         const formatted = selections.map(s => {
             const matchPlayer = (id) => {
-                const player = leaderboard.find(p => p.player_id === id)
-
+                let player = leaderboard.find(p => p.player_id === id)
                 return player
             }
 
@@ -159,36 +162,7 @@ export const GlobalProvider = ({ children }) => {
             standing.position = ((eqPrev || eqNext) ? "" : "") + position;
         }
 
-        // sort formatted by position
 
-
-
-        // const test = formatted.reduce((positions, result, index) => {
-        //     const jointPoints = formatted.filter(r => r.total_to_par === result.total_to_par);
-        //     if (jointPoints.length > 1) {
-        //         return [...positions, ...jointPoints.map(r => {
-        //             //This is all you need
-        //             r.position = position(index - jointPoints.length + 2, true);
-        //             return r;
-        //         })]
-        //     } else {
-        //         result.position = position(index + 1, false);
-        //         return [...positions, result];
-        //     }
-        // }, []);
-        // console.log(test)
-        // sort formatted alphabetically by name
-        // formatted.sort((a, b) => {
-        //     if (a.name < b.name) {
-        //         return -1;
-        //     } else if (a.name > b.name) {
-        //         return 1;
-        //     } else {
-        //         return 0;
-        //     }
-        // })
-
-        //console.log(formatted)
 
         // check if any objects in formatted have the same total value
         const checkDuplicates = (arr) => {
@@ -237,7 +211,11 @@ export const GlobalProvider = ({ children }) => {
         const getTotalToPar = (arr) => {
             let total = 0;
             arr.forEach(player => {
-                total += player.total_to_par
+                if (player.status == 'wd') {
+                    total = player.total_to_par + 5;
+                } else {
+                    total += player.total_to_par
+                }
             })
             return total
         }
@@ -284,10 +262,6 @@ export const GlobalProvider = ({ children }) => {
 
             standing.position = ((eqPrev || eqNext) ? "" : "") + position;
         }
-
-
-
-        console.log(formatted)
 
 
         dispatch({

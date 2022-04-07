@@ -25,6 +25,13 @@ const AppReducer = (state, action) => {
                 updated: action.payload.updated,
                 loading: false,
             };
+        case 'GET_LADS_TEAMS':
+            return {
+                ...state,
+                lads: action.payload,
+
+                loading: false,
+            };
         case 'GET_LEADERBOARD':
             return {
                 ...state,

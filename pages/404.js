@@ -9,7 +9,7 @@ const FourOhFour = () => {
                     <p className="text-4xl font-extrabold text-base-100 sm:text-5xl">Fore!</p>
                     <div className="sm:ml-6">
                         <div className="sm:border-l sm:border-gray-200 sm:pl-6">
-                            <h1 className="text-4xl font-extrabold text-ukraineyellow tracking-tight sm:text-5xl">Page not found</h1>
+                            <h1 className="text-4xl font-extrabold text-ukraineyellow tracking-tight sm:text-5xl">Out of Bounds!</h1>
                             <p className="mt-1 text-base text-gray-100">Please check the URL in the address bar and try again.</p>
                         </div>
                         <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">

@@ -27,7 +27,7 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
           {i != 0 && team.position === arr[i - 1].position ? (
             <div className="w-2"></div>
           ) : (
-            <div className="text-sm font-medium text-gray-900">{team.position}</div>
+            <div className={team.position.length > 2 ? "text-xs font-medium text-gray-900 -mr-3":"text-sm font-medium text-gray-900 "}>{team.position}</div>
           )}
         </div>
 

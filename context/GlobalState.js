@@ -201,9 +201,9 @@ export const GlobalProvider = ({ children }) => {
             return dupes
         }
 
-        console.log(checkDuplicates(formatted))
+        //console.log(checkDuplicates(formatted))
 
-
+console.log(formatted)
 
         // console.log(formatted.sort((a, b) => b.total - a.total))
 

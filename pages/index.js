@@ -1,96 +1,140 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { GlobalContext } from '../context/GlobalState'
+import Scoreboard from '../components/Scoreboard';
+import Moment from 'react-moment';
 import { supabase } from '../client'
-import { useRouter } from 'next/router'
+
 
 export default function Home({ user }) {
-  const router = useRouter();
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState(false)
+  const { picks, getTeams, updated } = useContext(GlobalContext);
+  const [favs, setFavs] = useState([])
+  const [showFavs, setShowFavs] = useState(false)
+  const [show, setShow] = useState(null);
+  const [temp, setTemp] = useState([])
+  const tour = {
+    "id": 456,
+    "type": "Stroke Play",
+    "tour_id": 2,
+    "name": "Masters Tournament",
+    "country": "Augusta, USA",
+    "course": "Augusta National Golf Club",
+    "start_date": "2022-04-07 00:00:00",
+    "end_date": "2022-04-10 00:00:00",
+    "timezone": "America/New_York",
+    "prize_fund": "",
+    "fund_currency": "USD",
+    "live_details": ''
+  }
 
-  // function to sign the user in with supabase
-  const handleSubmit = async () => {
+  // filter through favs and return any ids from temp that match favs
+  const favsgroup = temp.filter(function (item) {
+    return favs.includes(item.id);
+  });
+  //console.log(favsgroup)
 
-    const { error } = await supabase.auth.signIn({ email })
-    if (error) {
-      setError(true)
+
+  const handleShow = (index) => {
+    if (show === index) {
+      setShow(null)
+    } else setShow(index)
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (favs.length > 0) {
+        localStorage.setItem('favs', JSON.stringify(favs));// all other localStorage must be wrapped with this is if statement check
+      }
     } else {
-      setSubmitted(true)
+      return
     }
 
+  }, [favs]);
+  useEffect(() => {
+    getTeams()
+    setTemp(picks)
+    if (typeof window !== 'undefined') {
+      const favs = JSON.parse(localStorage.getItem('favs'));
+      if (favs) {
+        setFavs(favs);
+      }
+    }
 
+  }, []);
+
+  useEffect(() => {
+    setTemp(picks)
+  }, [picks])
+
+  // function to get the sum of total_to_par for each player in picks
+  const getTotalToPar = (arr) => {
+    let total = 0;
+    arr.forEach(player => {
+      total += player.total_to_par
+    })
+    return total
   }
 
-  if (submitted) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
-        <div className='order-2 md:order-first'>
-
-          <Image alt='golfer celebrating' src='/tiger.webp' width={600} height={400} className="rounded-2xl"></Image>
-        </div>
-        <div className='order-1 flex flex-col gap-5 mt-4 max-w-lg'>
-          <div className="text-base-100 font-bold text-4xl">Thanks! </div>
-          <div className="text-base-100 text-md tracking-wide leading-7">
-            Now just check your email for a link to sign in and enter!
-          </div>
-
-
-        </div >
-        <div className="order-3 bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
-          <div className="flex gap-4">
-            <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
-            <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
-          </div>
-        </div>
-      </div >
-    )
+  const handleFav = (e, id) => {
+    e.stopPropagation()
+    // check if id is in favs state
+    if (favs.includes(id)) {
+      // if it is, remove it
+      const newFavs = favs.filter(fav => fav !== id)
+      setFavs(newFavs)
+    } else {
+      // if it is not, add it
+      setFavs([...favs, id])
+    }
   }
+  const handleSwitch = (type) => {
+    if (type === 'favourites') {
+      setShowFavs(true)
+    } else {
+      setShowFavs(false)
+    }
+    setShow(null)
+  }
+
+  //console.log(picks)
+
+
 
   return (
-    <div >
-      <Head>
+    <div className=" md:relative bg-base-100 card rounded-t-none shadow-2xl pb-6 -mx-4 ">
+      <div className="relative pt-24 pb-2 shadow-xl overflow-hidden">
+        <img
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/masters-scene.webp"
+          alt="masters scene"
+        />
+        <div className="absolute inset-0 bg-green-500 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-t from-mgreen via-mgreen opacity-70" />
+        <div className="relative px-8 flex flex-col">
+          <div className="font-bold text-xl  text-ukraineyellow">{tour.name}</div>
+          <div className="font-bold text-md text-base-100 pb-2">{tour.course}</div>
+          {updated && (<div className="text-xs text-gray-100 pb-4">Updated <Moment fromNow>{updated}</Moment></div>)}
 
 
-      </Head>
-      <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 gap-10 mt-8">
-        <div className='order-last lg:order-first flex items-center'>
-          <Image alt='masters scene' src='/masters-scene.webp' width={600} height={400} className="rounded-2xl"></Image>
         </div>
-        <main className='flex flex-col gap-5 mt-4 max-w-lg'>
-          <h1>
-            <span className="block text-sm font-semibold uppercase tracking-wide text-gray-200 sm:text-base lg:text-sm xl:text-base">
-              Masters 2022
-            </span>
-            <span className="mt-1 block text-4xl font-extrabold sm:text-5xl xl:text-6xl">
-              <span className="block text-gray-100">A Tradition Unlike</span>
-              <span className="block text-ukraineyellow">Any Other</span>
-            </span>
-          </h1>
-          {!user && (<div className="text-base-100 text-md tracking-wide leading-7">
-            Enter your email address to sign up. You will get an email with a link to sign up and enter. One less password to remember!
-
-          </div>)}
-
-          <div className=" bg-gray-100 my-3 p-3 rounded-lg text-base shadow-md text-gray-100 sm:my-5 sm:text-xl lg:text-lg xl:text-xl">
-            <div className="flex gap-4">
-              <Image alt='ukraine flag' src='/flags/UKR.svg' width={100} height={30}></Image>
-              <div className="text-ukraineblue font-medium tracking-wider">All profits donated to the <span className='text-mred font-medium'>Irish Red Cross Ukraine Crisis Appeal.</span> </div>
-            </div>
-          </div>
-          {!user ? <>
-            <input className="input input-bordered w-full max-w-lg" placeholder='Your email address...' type="email" autoComplete='email' name="" id="" onChange={e => setEmail(e.target.value)} />
-            <div className="flex  gap-5">
-              <button className='btn btn-accent grow ' onClick={() => handleSubmit()}>Sign Up</button>
-              <Link passHref href='/about'><button className='btn btn-accent btn-outline w-1/3' >About</button></Link>
-
-            </div> </> :
-            <button className='btn btn-accent w-full  max-w-lg' onClick={() => router.push('/enter')}>Enter Now</button>}
-
-        </main>
       </div>
+
+      <div className="btn-group w-full">
+        <button onClick={() => handleSwitch('leaderboard')} className={showFavs === false ? "btn btn-accent btn-sm w-1/2  rounded-none" : 'btn btn-sm  w-1/2 rounded-none'}>Leaderboard</button>
+        <button onClick={() => handleSwitch('favourites')} className={showFavs === true ? "btn btn-accent btn-sm w-1/2  rounded-none" : 'btn btn-sm  w-1/2 rounded-none'}>Favourites</button>
+      </div>
+
+      {picks.length < 1 ? (
+        <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
+      ) : (<div className='px-3 pt-2'>
+        <div className="flow-root mt-6">
+
+          <ul className="-my-5 divide-y divide-gray-300">
+            {favs && showFavs ? (<Scoreboard scoredata={favsgroup} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)
+              : (<Scoreboard scoredata={picks} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)}
+          </ul>
+        </div>
+      </div>
+      )}
     </div>
   )
 }

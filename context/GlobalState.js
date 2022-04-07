@@ -115,6 +115,15 @@ export const GlobalProvider = ({ children }) => {
             return total
         }
 
+        // const position = (place, equals) => {
+        //     const joint = equals ? '=' : '';
+        //     if (place.toString().endsWith(1) && !place.toString().endsWith(11)) return `${place}st${joint}`;
+        //     if (place.toString().endsWith(2)) return `${place}nd${joint}`;
+        //     if (place.toString().endsWith(3)) return `${place}rd${joint}`;
+
+        //     return `${place}th${joint}`
+        // }
+
         const formatted = selections.map(s => {
             const matchPlayer = (id) => {
                 const player = leaderboard.find(p => p.player_id === id)
@@ -134,7 +143,39 @@ export const GlobalProvider = ({ children }) => {
                 id: s.id, name: s.team_name, tiebreaker: s.tiebreaker, picks: s.picks.map(sel => matchPlayer(sel.player_id)), total: total, total_to_par: getTotalToPar(s.picks.map(sel => matchPlayer(sel.player_id)))
             }
         })
+        formatted.sort((a, b) => {
+            return a.total_to_par - b.total_to_par
+        })
 
+
+        let position = 0;
+        for (const [index, standing] of formatted.entries()) {
+            const eqPrev = index > 0 && formatted[index - 1].total_to_par === standing.total_to_par;
+            const eqNext = index < formatted.length - 1 && formatted[index + 1].total_to_par === standing.total_to_par;
+
+            if (!eqPrev) position = index + 1;
+
+            standing.position = ((eqPrev || eqNext) ? "" : "") + position;
+        }
+
+        // sort formatted by position
+
+
+
+        // const test = formatted.reduce((positions, result, index) => {
+        //     const jointPoints = formatted.filter(r => r.total_to_par === result.total_to_par);
+        //     if (jointPoints.length > 1) {
+        //         return [...positions, ...jointPoints.map(r => {
+        //             //This is all you need
+        //             r.position = position(index - jointPoints.length + 2, true);
+        //             return r;
+        //         })]
+        //     } else {
+        //         result.position = position(index + 1, false);
+        //         return [...positions, result];
+        //     }
+        // }, []);
+        // console.log(test)
         // sort formatted alphabetically by name
         // formatted.sort((a, b) => {
         //     if (a.name < b.name) {
@@ -147,7 +188,24 @@ export const GlobalProvider = ({ children }) => {
         // })
 
         //console.log(formatted)
-        //console.log(formatted.sort((a, b) => b.total - a.total))
+
+        // check if any objects in formatted have the same total value
+        const checkDuplicates = (arr) => {
+
+            let dupes = []
+            arr.forEach(obj => {
+                if (arr.filter(o => o.total === obj.total).length > 1) {
+                    dupes.push(obj)
+                }
+            })
+            return dupes
+        }
+
+        console.log(checkDuplicates(formatted))
+
+
+
+        // console.log(formatted.sort((a, b) => b.total - a.total))
 
         dispatch({
             type: 'GET_TEAMS',

@@ -110,8 +110,8 @@ const scores = () => {
                 <div className="relative px-8 flex flex-col">
                     <div className="font-bold text-xl  text-ukraineyellow">{tour.name}</div>
                     <div className="font-bold text-md text-base-100 pb-2">{tour.course}</div>
-                    {updated && ( <div className="text-xs text-gray-100 pb-4">Updated <Moment fromNow>{updated}</Moment></div>)}
-                   
+                    {updated && (<div className="text-xs text-gray-100 pb-4">Updated <Moment fromNow>{updated}</Moment></div>)}
+
 
                 </div>
             </div>
@@ -123,7 +123,7 @@ const scores = () => {
 
             {picks.length < 1 ? (
                 <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
-            ) : (<div className='px-3'>
+            ) : (<div className='px-3 pt-2'>
                 <div className="flow-root mt-6">
 
                     <ul className="-my-5 divide-y divide-gray-300">

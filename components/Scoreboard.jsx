@@ -2,14 +2,8 @@ import React from 'react';
 import { StarIcon } from '@heroicons/react/outline';
 import { StarIcon as StarSolid } from '@heroicons/react/solid';
 
-const Scoreboard = ({
-  scoredata,
-  handleFav,
-  handleShow,
-  favs,
-  show,
-}) => {
-  return scoredata.map((team, i) => (
+const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
+  return scoredata.map((team, i, arr) => (
     <li
       key={team.id}
       className={show === i ? 'py-3 cursor-pointer' : 'py-3 cursor-pointer'}
@@ -17,7 +11,7 @@ const Scoreboard = ({
         handleShow(i);
       }}
     >
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 pb-2">
         {favs.includes(team.id) ? (
           <StarSolid
             onClick={(e) => handleFav(e, team.id)}
@@ -29,6 +23,13 @@ const Scoreboard = ({
             className="w-5 text-gray-500"
           ></StarIcon>
         )}
+        <div className="">
+          {i != 0 && team.position === arr[i - 1].position ? (
+            <div className="w-2"></div>
+          ) : (
+            <div className="text-sm font-medium text-gray-900">{team.position}</div>
+          )}
+        </div>
 
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-900 truncate">
@@ -51,10 +52,10 @@ const Scoreboard = ({
               className="text-xs flex flex-col items-center"
               key={p.player_id}
             >
-              <div className="grow">
+              <div className="grow pb-1">
                 <img
                   src={`/headshots/${p.player_id}.webp`}
-                  className="rounded-full w-12"
+                  className="rounded-2xl w-12"
                 ></img>
               </div>
               <div className="font-medium select-none">{p.last_name}</div>

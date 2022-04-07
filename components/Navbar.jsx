@@ -7,10 +7,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/outline';
 const Navbar = ({ auth }) => {
-  const navigation = [
-    { name: 'Enter', href: '/enter' },
-    { name: 'Profile', href: '/profile' },
-  ];
+
 
   const { totalUniqueItems } = useCart();
   return (
@@ -52,14 +49,14 @@ const Navbar = ({ auth }) => {
                   <UserCircleIcon className="w-4"></UserCircleIcon>
                 </div>
               </Link>
-              {totalUniqueItems > 0 && (
+              {/* {totalUniqueItems > 0 && (
                 <Link href="/cart" passHref>
                   <div className="btn btn-sm btn-outline btn-primary border-mgreen">
                     <ShoppingCartIcon className="w-4"></ShoppingCartIcon>
                     {totalUniqueItems > 0 && totalUniqueItems}
                   </div>
                 </Link>
-              )}
+              )} */}
             </div>
           )}
         </div>

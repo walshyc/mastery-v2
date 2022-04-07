@@ -142,9 +142,9 @@ export default function Home({ user }) {
 export const getServerSideProps = async ({ req }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
-  if (user) {
-    return { props: { user }, redirect: { destination: '/' } }
-  }
+  // if (user) {
+  //   return { props: { user }, redirect: { destination: '/' } }
+  // }
 
   return { props: { user } }
 

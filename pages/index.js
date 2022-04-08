@@ -100,7 +100,7 @@ export default function Home({ user }) {
 
 
   return (
-    <div className=" md:relative bg-base-100 card rounded-t-none shadow-2xl pb-6 -mx-4 ">
+    <div className=" md:relative bg-base-100 card rounded-t-none lg:rounded-t-xl shadow-2xl pb-6 -mx-4 lg:mt-4">
       <div className="relative pt-24 pb-2 shadow-xl overflow-hidden">
         <img
           className="absolute inset-0 h-full w-full object-cover"

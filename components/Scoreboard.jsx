@@ -6,7 +6,11 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
   return scoredata.map((team, i, arr) => (
     <li
       key={team.id}
-      className={show === i ? 'py-3 cursor-pointer select-none' : 'py-3 cursor-pointer select-none'}
+      className={
+        show === i
+          ? 'py-3 cursor-pointer select-none'
+          : 'py-3 cursor-pointer select-none'
+      }
       onClick={() => {
         handleShow(i);
       }}
@@ -68,11 +72,15 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
               </div>
               <div className="font-medium select-none">{p.last_name}</div>
               <div className="text-sm font-bold select-none">
-                {p.status === 'wd' || p.status === 'cut' ? p.total_to_par + 5 : p.total_to_par}
+                {p.status === 'wd' || p.status === 'cut'
+                  ? p.total_to_par + 5 + 72
+                  : p.total_to_par}
               </div>
 
               <div className="text-[0.6rem] select-none">
-                {p.status === 'wd'|| p.status === 'cut'  ? 'CUT' : p.holes_played}
+                {p.status === 'wd' || p.status === 'cut'
+                  ? 'CUT'
+                  : p.holes_played}
               </div>
             </div>
           ))}

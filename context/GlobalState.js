@@ -107,7 +107,6 @@ export const GlobalProvider = ({ children }) => {
         );
 
         const leaderboard = res.data.results.leaderboard
-        console.log(leaderboard)
         const updated = res.data.results.tournament.live_details.updated
         const getTotalToPar = (arr) => {
             let total = 0;

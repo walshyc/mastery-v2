@@ -95,9 +95,6 @@ export default function Home({ user }) {
     setShow(null)
   }
 
-  console.log(picks)
-
-
 
   return (
     <div className=" md:relative bg-base-100 card rounded-t-none lg:rounded-t-xl shadow-2xl pb-6 -mx-4 lg:mt-4">

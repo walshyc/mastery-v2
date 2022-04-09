@@ -212,12 +212,27 @@ export const GlobalProvider = ({ children }) => {
 
         const leaderboard = res.data.results.leaderboard
         const updated = res.data.results.tournament.live_details.updated
+        // const getTotalToPar = (arr) => {
+        //     let total = 0;
+        //     arr.forEach(player => {
+        //         if (player.status == 'wd') {
+        //             total = player.total_to_par + 5;
+        //         } else {
+        //             total += player.total_to_par
+        //         }
+        //     })
+        //     return total
+        // }
+
         const getTotalToPar = (arr) => {
             let total = 0;
             arr.forEach(player => {
-                if (player.status == 'wd') {
-                    total = player.total_to_par + 5;
-                } else {
+                if (player.status == 'cut') {
+                    total = total + player.total_to_par + 5 + 72;
+                } else if (player.status == 'wd') {
+                    total = total + player.total_to_par + 5
+                }
+                else {
                     total += player.total_to_par
                 }
             })

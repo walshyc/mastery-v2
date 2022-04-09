@@ -112,9 +112,12 @@ export const GlobalProvider = ({ children }) => {
         const getTotalToPar = (arr) => {
             let total = 0;
             arr.forEach(player => {
-                if (player.status == 'wd' || player.status == 'cut') {
+                if (player.status == 'cut') {
                     total = total + player.total_to_par + 5 + 72;
-                } else {
+                } else if (player.status == 'wd') {
+                    total = total + player.total_to_par + 5
+                }
+                else {
                     total += player.total_to_par
                 }
             })

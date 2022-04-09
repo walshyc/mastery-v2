@@ -72,9 +72,15 @@ const Scoreboard = ({ scoredata, handleFav, handleShow, favs, show }) => {
               </div>
               <div className="font-medium select-none">{p.last_name}</div>
               <div className="text-sm font-bold select-none">
-                {p.status === 'wd' || p.status === 'cut'
+                {p.status === 'cut'
                   ? p.total_to_par + 5 + 72
-                  : p.total_to_par}
+                  : ""}
+                {p.status === 'wd'
+                  ? p.total_to_par + 5
+                  : ""}
+                {p.status === '' || p.status ==='active'
+                  ? p.total_to_par
+                  : ""}
               </div>
 
               <div className="text-[0.6rem] select-none">

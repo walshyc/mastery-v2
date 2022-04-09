@@ -122,10 +122,11 @@ export default function Home({ user }) {
         <button onClick={() => handleSwitch('leaderboard')} className={showFavs === false ? "btn btn-accent btn-sm w-1/2  rounded-none" : 'btn btn-sm  w-1/2 rounded-none'}>Leaderboard</button>
         <button onClick={() => handleSwitch('favourites')} className={showFavs === true ? "btn btn-accent btn-sm w-1/2  rounded-none" : 'btn btn-sm  w-1/2 rounded-none'}>Favourites</button>
       </div>
-
-      {picks.length < 1 ? (
+      <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
+      {/* {picks.length < 1 ? (
         <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
-      ) : (<div className='px-3 pt-2'>
+      ) : 
+      (<div className='px-3 pt-2'>
         <div className="flow-root mt-6">
 
           <ul className="-my-5 divide-y divide-gray-300">
@@ -134,7 +135,7 @@ export default function Home({ user }) {
           </ul>
         </div>
       </div>
-      )}
+      )} */}
     </div>
   )
 }

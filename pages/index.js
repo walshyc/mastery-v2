@@ -3,6 +3,7 @@ import { GlobalContext } from '../context/GlobalState'
 import Scoreboard from '../components/Scoreboard';
 import Moment from 'react-moment';
 import { supabase } from '../client'
+import { HeartIcon } from '@heroicons/react/solid';
 
 
 export default function Home({ user }) {
@@ -107,6 +108,7 @@ export default function Home({ user }) {
         <div className="absolute inset-0 bg-green-500 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-t from-mgreen via-mgreen opacity-70" />
         <div className="relative px-8 flex flex-col">
+
           <div className="font-bold text-xl  text-ukraineyellow">{tour.name}</div>
           <div className="font-bold text-md text-base-100 pb-2">{tour.course}</div>
           {updated && (<div className="text-xs text-gray-100 pb-4">Updated <Moment fromNow>{updated}</Moment></div>)}
@@ -120,19 +122,25 @@ export default function Home({ user }) {
         <button onClick={() => handleSwitch('favourites')} className={showFavs === true ? "btn btn-accent btn-sm w-1/2  rounded-none" : 'btn btn-sm  w-1/2 rounded-none'}>Favourites</button>
       </div>
 
+
       {picks.length < 1 ? (
         <div className="h-80 flex justify-center items-center"><div className="lds-ripple"><div></div><div></div></div></div>
-      ) : 
-      (<div className='px-3 pt-2'>
-        <div className="flow-root mt-6">
-
-          <ul className="-my-5 divide-y divide-gray-300">
-            {favs && showFavs ? (<Scoreboard scoredata={favsgroup} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)
-              : (<Scoreboard scoredata={picks} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)}
-          </ul>
+      ) :
+        (<div className='px-3 pt-2'>
+          <div className="flow-root mt-6">
+            <div className="alert alert-accent bg-ukraineyellow shadow-lg mb-10">
+              <div className='text-sm'>
+                <HeartIcon className='w-12 text-ukraineblue'></HeartIcon>
+                <span>Thanks to all for entering. <br></br> <span className='font-black'>€751</span> raised for The Irish Red Cross Appeal</span>
+              </div>
+            </div>
+            <ul className="-my-5 divide-y divide-gray-300">
+              {favs && showFavs ? (<Scoreboard scoredata={favsgroup} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)
+                : (<Scoreboard scoredata={picks} handleFav={handleFav} getTotalToPar={getTotalToPar} handleShow={handleShow} favs={favs} show={show} ></Scoreboard>)}
+            </ul>
+          </div>
         </div>
-      </div>
-      )}
+        )}
     </div>
   )
 }
